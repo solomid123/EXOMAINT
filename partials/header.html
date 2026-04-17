@@ -1,0 +1,149 @@
+<header class="nav-wrap">
+  <nav class="nav glass glass-solid">
+    <a class="brand" href="/index.html" aria-label="ExoMaintenance — accueil" data-route="home">
+      <span class="brand-mark" aria-hidden="true">◇</span>
+      <span class="brand-text">
+        <span class="brand-name">EXO<span class="brand-accent">MAINTENANCE</span></span>
+      </span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/index.html" data-route="home">Accueil</a></li>
+      <li><a href="/a-propos.html" data-route="about">À propos</a></li>
+
+      <li class="has-menu" data-route-match="services">
+        <button class="nav-trigger" aria-haspopup="true" aria-expanded="false">
+          Services <span class="chev">▾</span>
+        </button>
+        <div class="submenu mega">
+          <div class="submenu-inner glass glass-solid">
+            <div class="mega-feature">
+              <span class="mega-eyebrow">Expertises</span>
+              <h3>Ingénierie et maintenance à chaque étape</h3>
+              <p>Une approche bureau d'études + terrain pour fiabiliser les équipements, accélérer les reprises et structurer la maintenance.</p>
+              <a href="/services.html" class="mega-btn">Voir tous les services →</a>
+            </div>
+            <div class="mega-grid">
+              <a href="/services/conception-mecanique.html">
+                <strong>Conception mécanique</strong>
+                <span>Avant‑projets, cinématiques, implantation et dossiers de fabrication.</span>
+              </a>
+              <a href="/services/calcul-validation.html">
+                <strong>Calcul et validation</strong>
+                <span>Dimensionnement, calculs de structure et validation des hypothèses techniques.</span>
+              </a>
+              <a href="/services/industrialisation-fiabilisation.html">
+                <strong>Industrialisation &amp; fiabilisation</strong>
+                <span>Plans d'actions ciblés sur la disponibilité, la sécurité et la robustesse.</span>
+              </a>
+              <a href="/services/maintenance-preventive.html">
+                <strong>Maintenance préventive</strong>
+                <span>Gammes, périodicités et standardisation des interventions.</span>
+              </a>
+              <a href="/services/maintenance-predictive.html">
+                <strong>Maintenance prédictive</strong>
+                <span>Suivi d'état, signaux faibles et priorisation avant panne.</span>
+              </a>
+              <a href="/services/maintenance-corrective.html">
+                <strong>Maintenance corrective</strong>
+                <span>Analyse de défaillance, remise en route et réduction des récurrences.</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="has-menu" data-route-match="secteurs">
+        <button class="nav-trigger" aria-haspopup="true" aria-expanded="false">
+          Secteurs <span class="chev">▾</span>
+        </button>
+        <div class="submenu mega">
+          <div class="submenu-inner glass glass-solid">
+            <div class="mega-feature">
+              <span class="mega-eyebrow">Secteurs</span>
+              <h3>Des industries exigeantes, des réponses sur‑mesure</h3>
+              <p>De l'automobile au médical, nous accompagnons les équipes techniques sur leurs équipements critiques.</p>
+              <a href="/secteurs.html" class="mega-btn">Voir tous les secteurs →</a>
+            </div>
+            <div class="mega-grid">
+              <a href="/secteurs/automobile.html">
+                <strong>Automobile</strong>
+                <span>Châssis, BIW, liaisons au sol, prototypes.</span>
+              </a>
+              <a href="/secteurs/aeronautique.html">
+                <strong>Aéronautique &amp; Défense</strong>
+                <span>Équipements embarqués, ferrures, structures.</span>
+              </a>
+              <a href="/secteurs/energie.html">
+                <strong>Énergie</strong>
+                <span>Oil &amp; gas, nucléaire, renouvelables.</span>
+              </a>
+              <a href="/secteurs/industrie.html">
+                <strong>Industrie lourde</strong>
+                <span>Machines spéciales, convoyage, robotique.</span>
+              </a>
+              <a href="/secteurs/medical.html">
+                <strong>Médical</strong>
+                <span>Dispositifs, équipements de production.</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="/projets.html" data-route="projets">Projets</a></li>
+      <li><a href="/blog.html" data-route="blog">Blog</a></li>
+      <li><a href="/presse.html" data-route="presse">Presse</a></li>
+      <li><a href="/contact.html" data-route="contact">Contact</a></li>
+    </ul>
+
+    <a href="/contact.html" class="nav-cta">Demander un devis</a>
+
+    <!-- Mobile hamburger (hidden on desktop via CSS) -->
+    <button class="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navDrawer">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile slide-in drawer (controlled by includes.js) -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true" role="dialog" aria-label="Menu de navigation">
+  <div class="nav-drawer-inner">
+    <nav class="nav-drawer-nav" aria-label="Navigation mobile">
+      <a href="/index.html" data-route="home">Accueil</a>
+      <a href="/a-propos.html" data-route="about">À propos</a>
+
+      <details class="nav-drawer-group" data-route-match="services">
+        <summary>Services <span class="chev">▾</span></summary>
+        <div class="nav-drawer-links">
+          <a href="/services.html"><strong>Voir tous les services</strong></a>
+          <a href="/services/conception-mecanique.html">Conception mécanique</a>
+          <a href="/services/calcul-validation.html">Calcul &amp; validation</a>
+          <a href="/services/industrialisation-fiabilisation.html">Industrialisation &amp; fiabilisation</a>
+          <a href="/services/maintenance-preventive.html">Maintenance préventive</a>
+          <a href="/services/maintenance-predictive.html">Maintenance prédictive</a>
+          <a href="/services/maintenance-corrective.html">Maintenance corrective</a>
+        </div>
+      </details>
+
+      <details class="nav-drawer-group" data-route-match="secteurs">
+        <summary>Secteurs <span class="chev">▾</span></summary>
+        <div class="nav-drawer-links">
+          <a href="/secteurs.html"><strong>Voir tous les secteurs</strong></a>
+          <a href="/secteurs/automobile.html">Automobile</a>
+          <a href="/secteurs/aeronautique.html">Aéronautique &amp; Défense</a>
+          <a href="/secteurs/energie.html">Énergie</a>
+          <a href="/secteurs/industrie.html">Industrie lourde</a>
+          <a href="/secteurs/medical.html">Médical</a>
+        </div>
+      </details>
+
+      <a href="/projets.html" data-route="projets">Projets</a>
+      <a href="/blog.html" data-route="blog">Blog</a>
+      <a href="/presse.html" data-route="presse">Presse</a>
+      <a href="/contact.html" data-route="contact">Contact</a>
+
+      <a href="/contact.html" class="nav-drawer-cta">Demander un devis →</a>
+    </nav>
+  </div>
+</div>

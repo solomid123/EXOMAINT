@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>ExoMaintenance — Bureau d'étude mécanique &amp; maintenance industrielle</title>
+<meta name="description" content="ExoMaintenance — conception mécanique, calcul FEA, maintenance préventive et prédictive pour les industries exigeantes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="home">
+
+<!-- ============ NAV (injected from /partials/header.html) ============ -->
+<div id="site-header"></div>
+
+<!-- ============ HERO: SCROLL SEQUENCE ============ -->
+<section id="top" class="hero">
+  <div class="hero-track">
+    <div class="hero-sticky">
+      <canvas id="sequence" aria-hidden="true"></canvas>
+
+      <!-- ACT 1 — Intro copy, visible only at the very first frames -->
+      <div class="hero-copy" data-phase="intro">
+        <span class="eyebrow">EX / 001 — Intelligence structurelle</span>
+        <h1>L'ingénierie des<br/><em>couches invisibles</em> de la performance.</h1>
+        <p class="lede">Faites défiler pour désassembler un châssis complet — de l'alliage fini jusqu'à une simulation éléments finis en temps réel.</p>
+        <div class="scroll-hint"><span>DÉFILER</span><div class="scroll-line"></div></div>
+      </div>
+
+      <!-- ACT 2 — Narrative lines that type in as the chassis disassembles -->
+      <aside class="hero-story" data-phase="story" aria-hidden="true">
+        <span class="eyebrow">— Dossier technique</span>
+        <ul class="story-lines">
+          <li data-show="0.14"><span class="sl-num">01</span><span class="sl-text">À chaque pièce, sa charge.</span></li>
+          <li data-show="0.19"><span class="sl-num">02</span><span class="sl-text">À chaque soudure, son hypothèse.</span></li>
+          <li data-show="0.24"><span class="sl-num">03</span><span class="sl-text">Nous révélons les contraintes invisibles</span></li>
+          <li data-show="0.29"><span class="sl-num">04</span><span class="sl-text">avant qu'elles ne cèdent.</span></li>
+        </ul>
+      </aside>
+
+      <!-- ACT 4 — Final CTA when the chassis is reassembled -->
+      <div class="hero-cta-panel" data-phase="cta" aria-hidden="true">
+        <span class="eyebrow">— Prochain mouvement</span>
+        <h2>Prêt à confier votre<br/><em>prochain défi</em> d'ingénierie&nbsp;?</h2>
+        <p>De l'esquisse à la mise en service — parlons de votre programme.</p>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn primary">Demander un devis →</a>
+          <a href="mailto:bureau@exomaintenance.fr" class="btn ghost">Parler à un ingénieur</a>
+        </div>
+      </div>
+
+      <!-- Floating glass cards, appear mid-scroll -->
+      <div class="float-cards" aria-hidden="false">
+        <article class="fcard glass glass-solid" data-card="cad">
+          <header>
+            <span class="fcard-idx">01</span>
+            <span class="fcard-tag">CONCEPTION</span>
+          </header>
+          <h3>Modélisation CAO</h3>
+          <p>Géométrie paramétrique et tolérancée, pensée pour la fabrication — du monocoque à la micro‑ferrure.</p>
+          <footer class="mono">± 0,02 mm · ISO 10303</footer>
+        </article>
+
+        <article class="fcard glass glass-solid" data-card="fea">
+          <header>
+            <span class="fcard-idx">02</span>
+            <span class="fcard-tag">SIMULATION</span>
+          </header>
+          <h3>Calcul éléments finis</h3>
+          <p>Contraintes non‑linéaires, analyses modales et crash résolus sur des millions d'éléments, avec précision validée.</p>
+          <footer class="mono">Abaqus · Ansys · LS‑DYNA</footer>
+        </article>
+
+        <article class="fcard glass glass-solid" data-card="pm">
+          <header>
+            <span class="fcard-idx">03</span>
+            <span class="fcard-tag">OPÉRATIONS</span>
+          </header>
+          <h3>Maintenance prédictive</h3>
+          <p>Jumeaux numériques alimentés par les capteurs — prédiction des fenêtres de défaillance plusieurs semaines à l'avance.</p>
+          <footer class="mono">99,2 % de disponibilité · flottes complètes</footer>
+        </article>
+      </div>
+
+      <!-- Bottom phase indicator -->
+      <div class="phase-meter mono">
+        <span class="pm-label">PHASE</span>
+        <span class="pm-value" id="phaseValue">SOLIDE · 000</span>
+        <span class="pm-bar"><span class="pm-fill" id="phaseFill"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS / TRUST BAR ============ -->
+<section id="clients" class="clients">
+  <div class="clients-head">
+    <span class="eyebrow">— Signes de confiance</span>
+    <h2>Des leaders de l'industrie s'appuient sur ExoMaintenance.</h2>
+    <p class="sub">Nous accompagnons au quotidien des industriels exigeants dans la conception, la fiabilisation et le maintien en conditions opérationnelles de leurs équipements essentiels.</p>
+  </div>
+
+  <div class="marquee" aria-label="Clients et partenaires">
+    <div class="marquee-track">
+      <!-- Row A -->
+      <ul class="marquee-row">
+        <li class="logo-nemera">nemera</li>
+        <li class="logo-soviresco">SOVIRESO</li>
+        <li class="logo-coke">Coca&#8209;Cola</li>
+        <li class="logo-te">TE Connectivity</li>
+        <li class="logo-sews">SEWS</li>
+        <li class="logo-yazaki">YAZAKI</li>
+        <li class="logo-slb">SLB</li>
+        <li class="logo-renault">RENAULT</li>
+        <li class="logo-texelis">TEXELIS</li>
+        <li class="logo-safran">SAFRAN</li>
+      </ul>
+      <!-- Row A duplicate for seamless loop -->
+      <ul class="marquee-row" aria-hidden="true">
+        <li class="logo-nemera">nemera</li>
+        <li class="logo-soviresco">SOVIRESO</li>
+        <li class="logo-coke">Coca&#8209;Cola</li>
+        <li class="logo-te">TE Connectivity</li>
+        <li class="logo-sews">SEWS</li>
+        <li class="logo-yazaki">YAZAKI</li>
+        <li class="logo-slb">SLB</li>
+        <li class="logo-renault">RENAULT</li>
+        <li class="logo-texelis">TEXELIS</li>
+        <li class="logo-safran">SAFRAN</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPABILITIES ============ -->
+<section id="capabilities" class="section">
+  <div class="section-head">
+    <span class="eyebrow">— Expertises</span>
+    <h2>La précision, de la première esquisse au dernier kilomètre.</h2>
+    <p class="sub">Un bureau d'études verticalement intégré, présent sur l'ensemble du cycle de vie d'un système mécanique.</p>
+  </div>
+
+  <div class="cap-grid">
+    <article class="cap glass">
+      <div class="cap-num mono">/ 01</div>
+      <h3>Conception structurelle</h3>
+      <p>Chemins de charge optimisés en topologie — masse, raideur et fabricabilité traités dans une seule boucle d'itération.</p>
+    </article>
+    <article class="cap glass">
+      <div class="cap-num mono">/ 02</div>
+      <h3>Simulation multi‑physique</h3>
+      <p>Thermique, modale, fluide‑structure et dynamique explicite — résolues, corrélées et validées par essais physiques.</p>
+    </article>
+    <article class="cap glass">
+      <div class="cap-num mono">/ 03</div>
+      <h3>Fabrication additive &amp; composites</h3>
+      <p>DfAM pour LPBF métal, conception des trajectoires CFRP et assemblages hybrides pour les séries courtes à haute performance.</p>
+    </article>
+    <article class="cap glass">
+      <div class="cap-num mono">/ 04</div>
+      <h3>Jumeau numérique</h3>
+      <p>Télémétrie temps réel ingérée dans des modèles réduits — prédiction de durée de vie résiduelle livrée aux équipes de maintenance.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process" class="section alt">
+  <div class="section-head">
+    <span class="eyebrow">— Méthode</span>
+    <h2>Quatre mouvements. Une boucle continue.</h2>
+  </div>
+  <ol class="process">
+    <li><span class="p-step mono">001</span><h4>Acquérir</h4><p>Scanner, mesurer, ingérer. La réalité devient géométrie.</p></li>
+    <li><span class="p-step mono">002</span><h4>Modéliser</h4><p>Arbres de fonctions, assemblages, tolérances, nomenclature.</p></li>
+    <li><span class="p-step mono">003</span><h4>Simuler</h4><p>Contraintes, vibrations, fatigue, écoulement — validés.</p></li>
+    <li><span class="p-step mono">004</span><h4>Surveiller</h4><p>Jumeau déployé. Opérations informées. La boucle se ferme.</p></li>
+  </ol>
+</section>
+
+<!-- ============ METRICS ============ -->
+<section id="metrics" class="section">
+  <div class="section-head">
+    <span class="eyebrow">— Chiffres clés</span>
+    <h2>Mesurés là où ça compte.</h2>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="m-val">128<span>M</span></div><div class="m-key mono">Éléments FE résolus / mois</div></div>
+    <div class="m"><div class="m-val">0,02<span>mm</span></div><div class="m-key mono">Tolérance géométrique</div></div>
+    <div class="m"><div class="m-val">99,2<span>%</span></div><div class="m-key mono">Disponibilité flotte atteinte</div></div>
+    <div class="m"><div class="m-val">17<span>ans</span></div><div class="m-key mono">Ancienneté moyenne des ingénieurs</div></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="contact" class="section cta-section">
+  <div class="cta glass">
+    <span class="eyebrow">— Lancer un programme</span>
+    <h2>Confiez‑nous le problème le plus difficile de votre feuille de route.</h2>
+    <p>Nous collaborons avec des OEM, des équipementiers tier‑1 et des laboratoires de recherche sur des programmes d'ingénierie pluriannuels. Les briefings sont confidentiels par défaut.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="/contact.html">Demander un devis</a>
+      <a class="btn ghost" href="#capabilities">Voir les expertises</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER (injected from /partials/footer.html) ============ -->
+<div id="site-footer"></div>
+
+<script src="/main.js" defer></script>
+</body>
+</html>

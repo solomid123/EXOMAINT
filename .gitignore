@@ -1,0 +1,18 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Secrets / env
+.env
+.env.*
+
+# Temporary helper scripts
+_*.ps1
+
+# Logs
+*.log

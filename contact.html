@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — ExoMaintenance</title>
+<meta name="description" content="Parlons de votre programme. Bureau d'étude mécanique & maintenance industrielle." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="contact">
+
+<div id="site-header"></div>
+
+<section class="page-hero">
+  <nav class="crumbs" aria-label="Fil d'Ariane">
+    <a href="/index.html">Accueil</a><span class="sep">/</span>
+    <span>Contact</span>
+  </nav>
+  <h1>Discutons de votre <em>prochain défi</em>.</h1>
+  <p class="lede">Briefings confidentiels par défaut. Nous revenons vers vous sous 48 h ouvrées.</p>
+</section>
+
+<section class="contact-grid">
+  <div class="contact-info">
+    <h2 style="font-size:24px;color:#fff;margin-bottom:10px;font-weight:400">Bureau d'études</h2>
+    <p>123 rue de l'Ingénierie<br/>69100 Villeurbanne, France</p>
+    <span class="mono">Téléphone</span>
+    <strong>+33 4 00 00 00 00</strong>
+    <span class="mono">E‑mail</span>
+    <strong>bureau@exomaintenance.fr</strong>
+    <span class="mono">Horaires</span>
+    <strong>Lun – Ven · 08h30 – 18h00</strong>
+  </div>
+
+  <form class="contact-form" id="contactForm" novalidate>
+    <div class="row">
+      <div><label for="f-name">Nom</label><input id="f-name" name="name" type="text" required></div>
+      <div><label for="f-company">Société</label><input id="f-company" name="company" type="text"></div>
+    </div>
+    <div class="row">
+      <div><label for="f-email">E‑mail</label><input id="f-email" name="email" type="email" required></div>
+      <div><label for="f-phone">Téléphone</label><input id="f-phone" name="phone" type="tel"></div>
+    </div>
+    <div style="margin-bottom:14px">
+      <label for="f-sub">Sujet</label>
+      <select id="f-sub" name="subject">
+        <option>Demande de devis</option>
+        <option>Conception mécanique</option>
+        <option>Calcul &amp; FEA</option>
+        <option>Maintenance préventive</option>
+        <option>Maintenance prédictive</option>
+        <option>Maintenance corrective</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div style="margin-bottom:14px">
+      <label for="f-msg">Votre message</label>
+      <textarea id="f-msg" name="message" required placeholder="Décrivez brièvement le contexte, les équipements concernés et l'échéance souhaitée."></textarea>
+    </div>
+
+    <!-- Honeypot: hidden from real users, bots tend to fill it. -->
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
+      <label>Site web <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+    <button type="submit" id="formSubmit">Envoyer la demande →</button>
+  </form>
+
+<script>
+/* =========================================================
+   Contact form → Supabase Edge Function → Resend → inbox.
+   The RESEND_API_KEY lives ONLY in Supabase as a secret.
+   ========================================================= */
+(() => {
+  const ENDPOINT = 'https://ntqyubyjpkqbmmhbtbjq.supabase.co/functions/v1/send-contact';
+
+  const form   = document.getElementById('contactForm');
+  const btn    = document.getElementById('formSubmit');
+  const status = document.getElementById('formStatus');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    // Client-side guardrails (the function validates again server-side).
+    if (!data.name || !data.email || !data.message) {
+      setStatus('Merci de renseigner le nom, l\u2019e-mail et le message.', 'error');
+      return;
+    }
+
+    btn.disabled = true;
+    const originalLabel = btn.textContent;
+    btn.textContent = 'Envoi\u2026';
+    setStatus('', '');
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const payload = await res.json().catch(() => ({}));
+
+      if (res.ok && payload.ok) {
+        form.reset();
+        btn.textContent = 'Merci \u2014 re\u00e7u \u2713';
+        setStatus('Votre message est parti. Nous revenons vers vous sous 48\u00a0h ouvr\u00e9es.', 'success');
+      } else {
+        btn.textContent = originalLabel;
+        btn.disabled = false;
+        // DEV: surface the Resend error detail so we can debug from the browser.
+        console.error('[contact] resend error payload:', payload);
+        const detail = payload.detail ? ' \u2014 ' + payload.detail : '';
+        setStatus((payload.error || 'Envoi impossible.') + detail, 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      btn.textContent = originalLabel;
+      btn.disabled = false;
+      setStatus('Probl\u00e8me r\u00e9seau. V\u00e9rifiez votre connexion et r\u00e9essayez.', 'error');
+    }
+  });
+
+  function setStatus(text, kind) {
+    status.textContent = text;
+    status.className = 'form-status' + (kind ? ' is-' + kind : '');
+  }
+})();
+</script>
+</section>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>
