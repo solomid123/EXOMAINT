@@ -254,22 +254,26 @@ p{color:var(--text-dim);max-width:62ch}
 /* ============== HAMBURGER + MOBILE DRAWER ============== */
 .nav-burger{
   display:none;
-  width:44px;height:44px;border-radius:100px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  cursor:pointer;padding:0;
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(242,230,201,.28);
+  cursor:pointer;padding:0;flex-shrink:0;
   align-items:center;justify-content:center;flex-direction:column;gap:5px;
-  transition:background .3s var(--ease);
+  transition:background .25s var(--ease), border-color .25s var(--ease);
+  box-shadow:0 2px 12px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.15) inset;
 }
-.nav-burger:hover{background:rgba(255,255,255,.1)}
+.nav-burger:hover{background:rgba(255,255,255,.18);border-color:rgba(242,230,201,.45)}
+.nav-burger:active{background:rgba(255,255,255,.22)}
 .nav-burger span{
-  display:block;width:18px;height:1.5px;background:#fff;border-radius:2px;
-  transition:transform .35s var(--ease), opacity .25s var(--ease);
+  display:block;width:20px;height:2px;background:#f2e6c9;border-radius:2px;
+  transition:transform .35s var(--ease), opacity .25s var(--ease), background .25s var(--ease);
   transform-origin:center;
 }
-.nav-burger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.is-open{background:rgba(242,230,201,.1);border-color:rgba(242,230,201,.55)}
+.nav-burger.is-open span{background:#ffffff}
+.nav-burger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-burger.is-open span:nth-child(2){opacity:0}
-.nav-burger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 .nav-drawer{
   position:fixed;inset:0;z-index:500;
@@ -537,8 +541,15 @@ body.no-scroll{overflow:hidden}
    ========================================================= */
 @media(max-width:780px){
   .hero-copy{left:6%;right:6%;top:14%;max-width:none}
-  .hero-copy h1{font-size:clamp(34px,10vw,48px)}
-  .hero-copy .lede{font-size:15px;max-width:42ch}
+  .hero-copy h1{font-size:clamp(34px,10vw,48px);text-shadow:0 2px 24px rgba(0,0,0,.8), 0 1px 3px rgba(0,0,0,.6)}
+  .hero-copy .lede{font-size:15px;max-width:42ch;color:#e8ecf2;text-shadow:0 2px 10px rgba(0,0,0,.9), 0 0 2px rgba(0,0,0,.8)}
+  .hero-copy .eyebrow{text-shadow:0 1px 6px rgba(0,0,0,.9)}
+  /* Stronger mobile scrim: a full-bleed radial fade behind the copy. */
+  .hero-copy::before{
+    inset:-40px -40px -40px -40px;
+    background:
+      radial-gradient(120% 90% at 50% 40%, rgba(8,9,11,.92), rgba(8,9,11,.55) 55%, rgba(8,9,11,0) 85%);
+  }
   .scroll-hint{bottom:-90px}
 
   /* ACT 2 narrative overlaps the cards on phones — skip it. */
