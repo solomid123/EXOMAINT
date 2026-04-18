@@ -560,16 +560,21 @@ body.no-scroll{overflow:hidden}
   /* ACT 2 narrative overlaps the cards on phones — skip it. */
   .hero-story{display:none}
 
-  /* Stack the floating cards: one per ~third of the viewport, full width. */
+  /* Stack the floating cards evenly via flex on phones — ditch per-card top/bottom. */
+  .float-cards{
+    position:absolute;inset:0;z-index:5;
+    display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;
+    padding:10% 0 14%;
+  }
   .fcard{
-    width:86% !important; left:7% !important; right:auto !important;
+    position:static !important;
+    width:86% !important; max-width:none !important;
+    left:auto !important; right:auto !important;
+    top:auto !important; bottom:auto !important;
     padding:18px 18px 16px;
   }
   .fcard h3{font-size:17px}
   .fcard p{font-size:13px}
-  .fcard[data-card="cad"]{top:14%;bottom:auto}
-  .fcard[data-card="fea"]{top:auto;bottom:36%}
-  .fcard[data-card="pm"] {top:auto;bottom:10%}
 
   /* ACT 4 CTA: smaller h2, tighter buttons. */
   .hero-cta-panel{width:86%}
