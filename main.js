@@ -94,17 +94,18 @@
     const cw = sticky.clientWidth, ch = sticky.clientHeight;
     ctx.clearRect(0, 0, cw, ch);
 
-    // Cover fit (with portrait-aware zoom + bias so the chassis fills mobile
-    // viewports instead of leaving the frame's dark left-hand margin visible).
     const iw = img.naturalWidth, ih = img.naturalHeight;
     const aspect = cw / ch;
     const isPortrait = aspect < 0.85;
-    const zoom = isPortrait ? 1.38 : 1.04; // more zoom on phones
-    const scale = Math.max(cw / iw, ch / ih) * zoom;
+
+    // On desktop: cover fit (fill the viewport, crop as needed).
+    // On phones: contain fit (the full chassis is visible, the frame's dark
+    // matte shows as neutral letterboxing rather than cropping the car).
+    const scale = isPortrait
+      ? Math.min(cw / iw, ch / ih) * 1.0
+      : Math.max(cw / iw, ch / ih) * 1.04;
     const w = iw * scale, h = ih * scale;
-    // Shift horizontally to the chassis (which sits on the right half of each frame)
-    const xBias = isPortrait ? -w * 0.08 : 0;
-    const x = (cw - w) / 2 + parallaxX + xBias;
+    const x = (cw - w) / 2 + parallaxX;
     const y = (ch - h) / 2 + parallaxY;
 
     ctx.drawImage(img, x, y, w, h);
