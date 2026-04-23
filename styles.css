@@ -728,6 +728,12 @@ body.no-scroll{overflow:hidden}
 }
 .tile:hover .tile-arrow{opacity:1;transform:translateX(4px)}
 
+/* Project tile enhancements */
+.tile-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tile-tags span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);background:rgba(255,255,255,.05);border:1px solid var(--stroke);padding:3px 8px;border-radius:20px}
+.tile-kpi{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.tile-kpi span{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--accent-warm);background:rgba(242,230,201,.06);border:1px solid rgba(242,230,201,.15);padding:5px 10px;border-radius:8px}
+
 /* Contact form */
 .contact-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:var(--maxw);margin:0 auto;padding:0 8% 120px;
@@ -766,6 +772,170 @@ body.no-scroll{overflow:hidden}
 }
 .form-status.is-success{color:#c8e6c9}
 .form-status.is-error{color:#ffb4a2}
+
+/* =========================================================
+   Case-study detail pages (projets/)
+   ========================================================= */
+
+/* Hero labels */
+.case-hero .case-labels{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+
+/* Meta bar */
+.case-meta-bar{
+  max-width:var(--maxw);margin:0 auto;padding:28px 8%;
+  display:flex;gap:40px;flex-wrap:wrap;
+  border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);
+}
+.case-meta{display:flex;flex-direction:column;gap:4px}
+.case-meta .mono{font-size:10px;letter-spacing:.24em;color:var(--text-faint)}
+.case-meta strong{font-size:13.5px;color:#fff;font-weight:400}
+@media(max-width:760px){.case-meta-bar{gap:24px;padding:22px 6%}}
+
+/* Body flow inside case studies */
+.case-flow{display:flex;flex-direction:column;gap:52px}
+.case-section .eyebrow{margin-bottom:10px}
+.case-section h2{margin-top:0}
+
+/* KPI sidebar block */
+.case-kpi-side{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.kpi-block{display:flex;flex-direction:column;gap:4px}
+.kpi-block .kpi-val{font-size:34px;font-weight:200;letter-spacing:-.02em;color:var(--accent-warm);line-height:1}
+.kpi-block .kpi-lbl{font-size:10.5px;letter-spacing:.18em;color:var(--text-faint)}
+
+/* Specs grid */
+.specs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:22px}
+@media(max-width:720px){.specs-grid{grid-template-columns:1fr}}
+.spec{
+  background:var(--surface);border:1px solid var(--stroke);border-radius:var(--radius-sm);
+  padding:22px;display:flex;flex-direction:column;gap:10px;
+}
+.spec .mono{font-size:11px;color:var(--text-faint)}
+.spec h5{font-size:15px;color:#fff;font-weight:500;letter-spacing:-.005em}
+.spec p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin:0}
+
+/* Results bar */
+.results-bar{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px;
+}
+@media(max-width:900px){.results-bar{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.results-bar{grid-template-columns:repeat(2,1fr)}}
+.r-item{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  border:1px solid var(--stroke);border-radius:var(--radius);
+  padding:24px 20px;display:flex;flex-direction:column;gap:8px;
+}
+.r-item .r-val{
+  font-size:clamp(22px,2.4vw,32px);font-weight:200;letter-spacing:-.02em;color:var(--accent-warm);line-height:1;
+}
+.r-item .r-lbl{font-size:12px;color:var(--text-dim);line-height:1.45}
+.results-note{margin-top:18px;font-size:14px;color:var(--text-dim);font-style:italic;max-width:72ch}
+
+/* Quote block */
+.case-quote{
+  margin:0;padding:28px 26px;border-left:2px solid var(--accent-warm);
+  background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;
+}
+.case-quote p{font-size:17px;color:#e9ecef;line-height:1.6;margin:0 0 14px;font-style:italic}
+.case-quote footer{font-size:13px;color:var(--text-dim);font-style:normal}
+
+/* Bottom pager */
+.case-pager{
+  max-width:var(--maxw);margin:0 auto;padding:0 8% 100px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.case-pager a{
+  font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-dim);transition:color .3s var(--ease);
+}
+.case-pager a:hover{color:#fff}
+.case-pager .pager-all{color:var(--text-faint)}
+@media(max-width:560px){.case-pager{flex-direction:column;align-items:flex-start;gap:10px}}
+
+/* =========================================================
+   Press / editorial pages (presse/)
+   ========================================================= */
+
+/* Hero date block */
+.press-hero .press-date-block{
+  display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;
+}
+.press-hero .press-date-block time{
+  font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-warm);
+  border:1px solid rgba(242,230,201,.25);padding:4px 10px;border-radius:20px;
+}
+.press-hero .press-pub{
+  font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-faint);
+}
+
+/* Meta bar */
+.press-meta-bar{
+  max-width:var(--maxw);margin:0 auto;padding:22px 8%;
+  display:flex;gap:40px;flex-wrap:wrap;
+  border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);
+}
+.press-meta{display:flex;flex-direction:column;gap:4px}
+.press-meta .mono{font-size:10px;letter-spacing:.24em;color:var(--text-faint)}
+.press-meta strong{font-size:13.5px;color:#fff;font-weight:400}
+.press-meta a{color:var(--accent-warm);text-decoration:none;transition:opacity .3s var(--ease)}
+.press-meta a:hover{opacity:.8}
+@media(max-width:760px){.press-meta-bar{gap:24px;padding:18px 6%}}
+
+/* Body */
+.press-body.page-body{grid-template-columns:280px 1fr;gap:60px}
+@media(max-width:980px){.press-body.page-body{grid-template-columns:1fr;gap:40px}}
+
+/* Flow */
+.press-flow{display:flex;flex-direction:column;gap:36px}
+.press-flow h2{font-size:clamp(22px,2.2vw,30px);margin:16px 0 10px;letter-spacing:-.01em}
+.press-flow p{font-size:15.5px;color:#c9ced6;line-height:1.75;margin-bottom:12px;max-width:66ch}
+.press-flow p.press-lead{
+  font-size:17.5px;color:#e2e6eb;line-height:1.7;margin-bottom:18px;
+}
+
+/* Pull quote */
+.press-pullquote{
+  margin:8px 0;padding:26px 28px;border-left:2px solid var(--accent-warm);
+  background:linear-gradient(90deg, rgba(242,230,201,.04), transparent 80%);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.press-pullquote p{
+  font-size:18px;color:#e9ecef;line-height:1.55;margin:0 0 12px;font-style:italic;max-width:58ch;
+}
+.press-pullquote footer{
+  font-size:13px;color:var(--text-dim);font-style:normal;font-family:'Inter',sans-serif;
+}
+
+/* Sidebar facts */
+.press-facts{display:flex;flex-direction:column;gap:18px;margin-top:28px}
+.pfact{display:flex;flex-direction:column;gap:4px}
+.pfact-num{font-size:30px;font-weight:200;letter-spacing:-.02em;color:var(--accent-warm);line-height:1}
+.pfact-lbl{font-size:10.5px;letter-spacing:.16em;color:var(--text-faint)}
+
+/* Contact box */
+.press-contact-box{
+  margin-top:16px;padding:26px;border:1px solid var(--stroke);border-radius:var(--radius);
+  background:var(--surface);
+}
+.press-contact-box .mono{margin-bottom:10px}
+.press-contact-box p{font-size:14px;color:var(--text-dim);line-height:1.6;margin:0}
+.press-contact-box a{color:var(--accent-warm);text-decoration:none}
+
+/* Press list on presse.html */
+.press-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0}
+.press-list li{border-top:1px solid var(--stroke)}
+.press-list li:last-child{border-bottom:1px solid var(--stroke)}
+.press-list a{
+  display:grid;grid-template-columns:100px 1fr;gap:20px;align-items:baseline;
+  padding:18px 0;text-decoration:none;color:inherit;transition:background .3s var(--ease);
+}
+.press-list a:hover{background:rgba(255,255,255,.03)}
+.press-list time{
+  font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--text-faint);
+}
+.press-list span{font-size:15.5px;color:#e2e6eb;line-height:1.5}
+@media(max-width:560px){.press-list a{grid-template-columns:1fr;gap:4px}}
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){

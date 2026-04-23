@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PRJ · 042 — Bogie grande vitesse — ExoMaintenance</title>
+<meta name="description" content="Analyse tribologique et refonte de l'interface roue-rail d'un bogie grande vitesse à 320 km/h. Doublement de la durée de vie et conformité EN 13715." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="projets">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/projets.html">Projets</a><span class="sep">/</span><span>PRJ · 042</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">PRJ · 042</span>
+    <div class="tile-tags"><span>Ferroviaire</span><span>Tribologie</span><span>Contact</span></div>
+  </div>
+  <h1>Bogie grande vitesse — <em>refonte interface roue-rail</em></h1>
+  <p class="lede">À 320 km/h, un profil de roue usé de 0,3 mm génère des efforts latéraux qui fatiguent le bâti en 18 mois. Nous avons redessiné l'interface roue-rail pour doubler la durée de vie — sans changer le matériel roulant.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta">
+    <span class="mono">Client</span>
+    <strong>Constructeur ferroviaire · opérateur grande vitesse</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Durée</span>
+    <strong>16 mois</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Année</span>
+    <strong>2022 – 2023</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Normes</span>
+    <strong>EN 13715 · EN 15302 · UIC 510-2</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Outils</span>
+    <strong>Simpack · Vampire · Hertz/Carter · banc 1:5</strong>
+  </div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">Synthèse</span>
+    <h4>Le contact, c'est le système</h4>
+    <p>La tribologie roue-rail n'est pas un problème de matériau. C'est un problème de géométrie, de lubrification et de mécanique du contact élasto-plastique. Nous avons traité les trois simultanément.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">×2</span><span class="kpi-lbl mono">Durée de vie roue</span></div>
+      <div class="kpi-block"><span class="kpi-val">−35 %</span><span class="kpi-lbl mono">Taux d'usure</span></div>
+      <div class="kpi-block"><span class="kpi-val">EN 13715</span><span class="kpi-lbl mono">Conformité profil</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Contexte &amp; enjeu</span>
+      <h2>L'usure accélérée est un signal, pas une fatalité.</h2>
+      <p>Le parc de 42 rames à grande vitesse (320 km/h commerciaux) subissait un taux d'usure des bandages de roue anormalement élevé sur les lignes à fort rayon de courbure (R &lt; 2 500 m) et en présence de neige fondante salée. L'usure latérale (flange) atteignait 1,2 mm/10 000 km, soit un tournage de reprofilage tous les 80 000 km — bien en deçà de la durée de vie nominale de 200 000 km. Chaque reprofilage retire 4 mm de bandage ; la roue est au bout de 5 reprofilages. Le coût d'une roue neuve est de 18 k€, et le coût d'immobilisation rame est de 42 k€/jour.</p>
+      <p>L'analyse historique montrait que les pannes de bâti bogie (fissuration du châssis transversal, rupture de silentblocs secondaires) étaient corrélées aux périodes d'usure rapide. Les efforts latéraux excitaient les modes propres du bogie (12–18 Hz) et accéléraient la fatigue des soudures. Le client a mandaté ExoMaintenance pour comprendre la chaîne causale et proposer une refonte de l'interface roue-rail complète.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Démarche technique</span>
+      <h2>Du contact Hertz à la dynamique véhicule.</h2>
+      <p>Nous avons décomposé le problème en trois échelles couplées : micro (contact asperités, film lubrifiant), méso (répartition pression/contact, profilage), et macro (dynamique véhicule-voie, stabilité, confort).</p>
+      <ul>
+        <li><strong>Échelle micro — tribologie :</strong> mesure du coefficient de frottement sec et lubrifié sur banc disc-pin (échelle 1:1, matériau UIC 9102 / R8T). Identification de la transition stick-slip liée à la température de flash (Tflash calculée par Greenwood-Williamson modifié). Formulation d'un lubrifiant rail à base d'esters avec additivation anti-usure (MoDTC) réduisant le frottement de 18 % sans dégrader l'adhérence freinage (μ ≥ 0,35 à 20 °C, testé sur banc dynamométrique).</li>
+        <li><strong>Échelle méso — mécanique du contact :</strong> modélisation Hertz-Carter du contact roue-rail avec profil S1002/UIC60 usé mesuré par scanner 3D (résolution 10 µm). Simulation de l'évolution de la pression maximale de Hertz et du glissement longitudinal/crépage dans les courbes à 320 km/h. Résultat : le profil S1002 d'origine concentre la pression sur une bande de 8 mm en virage, induisant une usure par fatigue de roulement (spalling) prématurée.</li>
+        <li><strong>Échelle macro — dynamique véhicule :</strong> modèle multibody Simpack du bogie + demi-voie (54 corps, 126 joints, 8 contacts roue-rail). Excitation par voie réelle mesurée ( géométrie DTRACK, irregularités QN1). Validation de la stabilité (facteur de sécurité déverminage &gt; 1,5 selon EN 14363), du confort vertical (Wz ≤ 3,0 m/s²) et des efforts guidage (Y/Q ≤ 1,2) avec le nouveau profil et la nouvelle lubrification.</li>
+      </ul>
+      <p>La nouvelle géométrie de profil, dérivée du S1002 par une correction conique progressive de 1/40 sur le coned tread et un rayon de gorge élargi de 12 mm, a été taillée sur 4 roues et testée en dynamique réelle sur 12 000 km de ligne à courbes serrées. Les résultats ont confirmé la réduction d'usure et la conservation de la tenue de voie.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Stack &amp; méthodologie</span>
+      <h2>Corréler trois échelles, valider sur le rail.</h2>
+      <div class="specs-grid">
+        <div class="spec">
+          <span class="mono">01</span>
+          <h5>Tribologie</h5>
+          <p>Banc disc-pin à charge variable (50–800 N) et vitesse (0,1–2 m/s). Mesure coefficient de frottement, température flash IR, profilométrie 3D des surfaces usées. Formulation lubrifiant rail validée.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">02</span>
+          <h5>Contact Hertz-Carter</h5>
+          <p>Modèle numérique 2D/3D (Matlab + Abaqus) du contact roue-rail avec profil mesuré. Calcul pression Hertz, glissement, énergie dissipation et prédiction usure par Archard modifié.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">03</span>
+          <h5>Dynamique multibody</h5>
+          <p>Modèle Simpack 54 corps. Voie mesurée DTRACK + QN1. Validation conformité EN 14363 (stabilité, confort, effort guidage). Scénarios : vitesse maximale, freinage d'urgence, déverminage.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">04</span>
+          <h5>Validation terrain</h5>
+          <p>4 roues profilées neuves + 4 usées re-profilées. Mesure usure tous les 2 000 km (jauge profil, épaisseur bandage). Jauges de contrainte sur bâti bogie, accéléromètres essieu. 12 000 km courbes R＜2500 m.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Résultats mesurés</span>
+      <h2>Roues qui durent, bâtis qui reposent.</h2>
+      <div class="results-bar">
+        <div class="r-item">
+          <span class="r-val">×2,1</span>
+          <span class="r-lbl">Durée de vie roue (km avant reprofilage)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">−35 %</span>
+          <span class="r-lbl">Taux d'usure latérale (flange)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">−28 %</span>
+          <span class="r-lbl">Efforts latéraux moyens sur bâti</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">0,0 %</span>
+          <span class="r-lbl">Écart stabilité / confort EN 14363</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">EN 13715</span>
+          <span class="r-lbl">Conformité profil garantie</span>
+        </div>
+      </div>
+      <p class="results-note">Le nouveau profil et la nouvelle lubrification ont été déployés sur l'ensemble du parc (42 rames, 336 roues) en 8 mois. Le taux de fissuration bâti bogie a chuté de 62 % sur la première année de service. Le client a soumis le profil à l'UIC pour standardisation sous référence interne « S1002-EM ».</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Témoignage client</span>
+      <blockquote class="case-quote">
+        <p>« Nous avions toujours pensé que l'usure rapide était un problème de rail. ExoMaintenance nous a montré que c'était un problème de profil et de lubrification — et nous a donné la solution. »</p>
+        <footer>— Directeur technique matériel roulant · Opérateur grande vitesse</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation projet">
+  <a class="pager-prev" href="/projets/prj-039-stepper.html">← Projet précédent</a>
+  <a class="pager-all" href="/projets.html">Tous les projets</a>
+  <a class="pager-next" href="/projets/prj-014-biw.html">Projet suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

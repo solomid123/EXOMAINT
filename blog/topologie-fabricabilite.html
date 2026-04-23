@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Topologie et fabricabilité : le dernier kilomètre — Blog ExoMaintenance</title>
+<meta name="description" content="Pourquoi 80 % des topologies optimisées ne passent jamais en production — et comment faire passer les 20 % restantes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="blog">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/blog.html">Blog</a><span class="sep">/</span><span>Article</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">15.02.2026</span>
+    <div class="tile-tags"><span>Topologie</span><span>DfAM</span><span>CAO</span></div>
+  </div>
+  <h1>Topologie et fabricabilité : <em>le dernier kilomètre</em>.</h1>
+  <p class="lede">Pourquoi 80 % des topologies optimisées ne passent jamais en production — et comment faire passer les 20 % restantes en intégrant la fabrication dès la première itération.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta"><span class="mono">Auteur</span><strong>Nadia K. · Architecte conception</strong></div>
+  <div class="case-meta"><span class="mono">Temps de lecture</span><strong>6 min</strong></div>
+  <div class="case-meta"><span class="mono">Niveau</span><strong>Avancé</strong></div>
+  <div class="case-meta"><span class="mono">Mots-clés</span><strong>Topologie · SIMP · DfAM · emboutissage</strong></div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">En résumé</span>
+    <h4>L'optimisation sans fabricabilité est un exercice académique.</h4>
+    <p>Un algorithme de topologie ne connaît ni l'emboutissage, ni la coulée, ni l'impression 3D. Sans contraintes de fabricabilité, il produit des formes que l'industrie ne peut pas réaliser. Nous décrivons la méthode qui a permis de passer de la topologie à l'outil de production en deux itérations seulement.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">2</span><span class="kpi-lbl mono">Itérations outil</span></div>
+      <div class="kpi-block"><span class="kpi-val">−12 %</span><span class="kpi-lbl mono">Masse finale</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Le constat</span>
+      <h2>La topologie rêve. L'usine coupe.</h2>
+      <p>L'optimisation topologique est devenue un outil standard des bureaux d'études mécaniques. Sous son halo algorithmique, elle promet des structures optimales — minimisant la masse sous contraintes de raideur, de fréquence, de contrainte. Mais entre la topologie optimale et la pièce en production, il existe un fossé que peu de méthodologies franchissent proprement.</p>
+      <p>Sur le projet BIW automobile (<a href="/projets/prj-014-biw.html">PRJ · 014</a>), la topologie brute présentait des épaisseurs de paroi variables de 0,8 à 4,2 mm, des angles de dépouille de 3°, et des rayons internes de 1,2 mm — toutes caractéristiques incompatibles avec l'emboutissage d'acier DP600 sur presse de 800 tonnes. L'ingénieur de production aurait dû refaire entièrement la géométrie à la main, perdant 60 % de la performance optimisée dans la traduction.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— La méthode</span>
+      <h2>Intégrer la fabrication dans le critère, pas dans le post-traitement.</h2>
+      <p>Notre approche consiste à ajouter des filtres de fabricabilité directement dans la boucle d'optimisation, de sorte que l'algorithme n'explore que l'espace des géométries réalisables. Sur le BIW, trois filtres ont été appliqués :</p>
+      <ul>
+        <li><strong>Filtre d'épaisseur minimale :</strong> pénalisation des éléments dont l'épaisseur extrapolée est inférieure à 1,2 mm (capacité d'emboutissage sans rupture pour DP600 à 1,8 mm de nuance initiale). Ce filtre est appliqué non pas comme une contrainte dure (qui rend le problème non-convexe), mais comme une pénalité douce dans la fonction objectif, avec un coefficient croissant au fil des itérations (méthode de barrière).</li>
+        <li><strong>Filtre d'angle de dépouille :</strong> vérification de la faisabilité du démoulage pour chaque élément de surface. Les éléments dont la normale fait un angle &lt; 8° avec la direction de démoulage sont pénalisés. Ce filtre est implémenté comme un opérateur de projection dans l'espace des densités (similarité au filtre de Heaviside de Sigmund).</li>
+        <li><strong>Filtre de rayon d'outillage :</strong> post-traitement géométrique automatique qui remplace les rayons de gorge inférieurs à 4 mm par des rayons standards de la gamme outils du fournisseur. Ce filtre est appliqué toutes les 20 itérations pour guider l'algorithme vers des solutions compatibles avec l'inventaire existant.</li>
+      </ul>
+      <p>La boucle optiSLang + Tosca a convergé en 142 itérations — 8 h de calcul sur 16 cœurs. La solution finale présentait une épaisseur de paroi constante à ±0,3 mm, des angles de dépouille ≥ 8° sur 94 % de la surface, et un rayon minimum de 4 mm. L'outil de forme a été validé en 2 itérations seulement, contre 7 à 12 sur des projets comparables sans filtre intégré.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Au-delà de l'emboutissage</span>
+      <h2>Fabrication additive et composites.</h2>
+      <p>Les mêmes principes s'appliquent à la fabrication additive métal (LPBF). Le filtre d'angle de dépouille devient un filtre d'angle de surplomb (≥ 45° pour l'acier 316L sans support, ou ≥ 35° avec support minimal). Le filtre d'épaisseur minimale devient un filtre de longueur de segment non-supporté (&lt; 3 mm sans attache à la poudre non-frittée). Nous avons déployé cette méthode sur des pièces de fixation aéronautiques en titane Ti-6Al-4V, réduisant le volume de support de 42 % tout en conservant les critères de fatigue à 10⁷ cycles.</p>
+      <p>Pour les composites CFRP, le filtre devient un filtre de trajectoire de dépose : la topologie est projetée sur un champ de fibres continues, avec contrainte de courbure minimale (rayon de courbure &gt; 25 mm pour prévenir le flambage des fibres). Cette approche, couplée à un algorithme de génération de trajectoires (steered tow), a permis de concevoir des pièces de voilure avec des renforts topologiques qui suivent les lignes de charge — quelque chose qu'aucun laminage manuel ne pourrait réaliser.</p>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Bilan mesuré</span>
+      <h2>La topologie qui passe en production.</h2>
+      <div class="results-bar">
+        <div class="r-item"><span class="r-val">2</span><span class="r-lbl">Itérations outil (vs 9 moyenne)</span></div>
+        <div class="r-item"><span class="r-val">−12 %</span><span class="r-lbl">Masse (conservée en production)</span></div>
+        <div class="r-item"><span class="r-val">8 h</span><span class="r-lbl">Temps calcul optimisation</span></div>
+        <div class="r-item"><span class="r-val">94 %</span><span class="r-lbl">Surface compatible démoulage</span></div>
+        <div class="r-item"><span class="r-val">0</span><span class="r-lbl">Retouches CAO post-topologie</span></div>
+      </div>
+      <p class="results-note">L'optimisation topologique n'est pas un problème de maths. C'est un problème d'industrialisation. La mathématique sans la fabrication est une abstraction coûteuse.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation blog">
+  <a class="pager-prev" href="/blog/maintenance-predictive-donnees.html">← Article précédent</a>
+  <a class="pager-all" href="/blog.html">Tous les articles</a>
+  <a class="pager-next" href="/blog/tribologie-roue-rail.html">Article suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

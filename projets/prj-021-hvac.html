@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PRJ · 021 — Fiabilisation HVAC classe 7 — ExoMaintenance</title>
+<meta name="description" content="AMDEC processus et RCM sur un parc de 42 unités de traitement d'air en salle blanche classe 7. Disponibilité passée à 99,2 %." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="projets">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/projets.html">Projets</a><span class="sep">/</span><span>PRJ · 021</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">PRJ · 021</span>
+    <div class="tile-tags"><span>Pharma</span><span>AMDEC</span><span>ISO 14644</span></div>
+  </div>
+  <h1>Fiabilisation HVAC — <em>salle blanche classe 7</em></h1>
+  <p class="lede">Un arrêt non planifié d'une UTA en zone critique coûte 340 k€ par jour de retard de batch. Nous avons éliminé les modes de défaillance dominants en 36 mois.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta">
+    <span class="mono">Client</span>
+    <strong>Laboratoire pharmaceutique · production stérile</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Durée</span>
+    <strong>36 mois (3 vagues)</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Année</span>
+    <strong>2022 – 2025</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Normes</span>
+    <strong>ISO 14644-1 · GMP Annex 1 · EN 1886</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Outils</span>
+    <strong>APICS · CMMS · vibration · thermographie</strong>
+  </div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">Synthèse</span>
+    <h4>Passer de la réaction à la prévention</h4>
+    <p>La maintenance était essentiellement corrective, avec une MTTR de 14 h sur les pannes moteur-ventilateur. Nous avons redessiné l'ensemble du système de maintenance autour de la criticité des processus, pas des pièces.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">99,2 %</span><span class="kpi-lbl mono">Disponibilité finale</span></div>
+      <div class="kpi-block"><span class="kpi-val">−60 %</span><span class="kpi-lbl mono">Pannes non planifiées</span></div>
+      <div class="kpi-block"><span class="kpi-val">−82 %</span><span class="kpi-lbl mono">MTTR moteur</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Contexte &amp; enjeu</span>
+      <h2>L'air conditionné est un médicament.</h2>
+      <p>La salle blanche classe 7 (3 520 particules/m³ ≥ 0,5 µm) héberge le remplissage aseptique de vaccins vivants atténués. Les 42 unités de traitement d'air (UTA) distribuent de l'air HEPA H14 à température et hygrométrie contrôlées. Une dérive de température &gt; 0,8 °C pendant 20 min invalide le batch entier — perte estimée à 2,1 M€ par lot.</p>
+      <p>En 2021, le site a subi 23 arrêts non planifiés liés aux UTA : 14 sur motoréducteurs (usure paliers, désalignement), 6 sur batteries de filtration (rupture différentielle), 3 sur vannes de régulation (encrassement sondes). La maintenance était un calendrier fixe (6 mois / 12 mois) sans lien avec l'état réel. Le CMMS enregistrait les interventions mais ne priorisait pas les risques process.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Démarche technique</span>
+      <h2>RCM ciblée sur le process, pas sur la machine.</h2>
+      <p>Nous avons mené une AMDEC processus sur les 8 lignes de production, puis une AMDEC équipement sur les 42 UTA classées par criticité (A : arrêt = perte batch ; B : dégradation qualité ; C : confort). Les modes de défaillance dominants étaient identifiés, mais surtout, nous avons cartographié les fonctions cachées que l'équipement remplit au-delà de son manuel : maintien de la surpression inter-zones, homogénéité thermique au niveau des spots d'injection, etc.</p>
+      <ul>
+        <li><strong>Vague 1 — Diagnostic :</strong> 180 jours de collecte vibratoire (accéléromètres IEPE sur 84 paliers moteur), thermographie infrarouge sur les batteries de filtration, audit de l'alignement arbre-poulie sur 100 % du parc. Livrable : carte de criticité actualisée et 12 actions immédiates.</li>
+        <li><strong>Vague 2 — Restructuration :</strong> passage de la maintenance systématique à la maintenance conditionnelle sur les 14 UTA critiques. Gammes réécrites avec seuils vibratoires (ISO 10816-3, zone A/B), remplacement préventif des filtres sur ΔP et non sur date, calibration des sondes en continu via jumeau numérique simplifié.</li>
+        <li><strong>Vague 3 — Autonomie :</strong> formation des 12 techniciens site à l'analyse vibratoire de niveau 1 (ISO 18436-2), mise en place d'un référentiel interne de décision (arbre de criticité) et intégration des données terrain dans le CMMS existant via API.</li>
+      </ul>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Stack &amp; méthodologie</span>
+      <h2>Du capteur à la décision en 4 heures.</h2>
+      <div class="specs-grid">
+        <div class="spec">
+          <span class="mono">01</span>
+          <h5>Surveillance</h5>
+          <p>Analyse vibratoire portable (SKF Microlog) + capteurs de température sans fil (LoRaWAN) sur moteurs 37 kW. Mesures hebdomadaires sur UTA A, mensuelles sur B et C.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">02</span>
+          <h5>AMDEC / RCM</h5>
+          <p>Méthode SAE JA1011. 14 ateliers avec opérateurs, qualité et maintenance. 312 modes de défaillance identifiés, 48 actions structurantes retenues.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">03</span>
+          <h5>Maintenance</h5>
+          <p>Gammes réécrites en QR-code sur chaque UTA. Accès direct aux plans d'ensemble, schémas électriques, pièces de rechange critiques et historique d'intervention.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">04</span>
+          <h5>Reporting</h5>
+          <p>Tableau de bord mensuel : MTBF par famille, coût de maintenance / coût de non-maintenance, indice de disponibilité, ΔP moyen batterie, alertes vibratoires en cours.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Résultats mesurés</span>
+      <h2>Des batchs sauvés, des coûts maîtrisés.</h2>
+      <div class="results-bar">
+        <div class="r-item">
+          <span class="r-val">99,2 %</span>
+          <span class="r-lbl">Disponibilité UTA (vs 92,1 %)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">−60 %</span>
+          <span class="r-lbl">Pannes non planifiées / an</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">−82 %</span>
+          <span class="r-lbl">MTTR moteur-ventilateur</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">340 k€</span>
+          <span class="r-lbl">Économie moyenne / arrêt évité</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">14 h → 2,5 h</span>
+          <span class="r-lbl">Temps moyen de réparation</span>
+        </div>
+      </div>
+      <p class="results-note">Aucun batch rejeté pour dérive thermique depuis le début de la vague 2 (18 mois). Le coût total de possession (TCO) des UTA a baissé de 28 % sur la période, bien que le parc ait vieilli de 3 ans en moyenne.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Témoignage client</span>
+      <blockquote class="case-quote">
+        <p>« ExoMaintenance a changé notre regard sur la maintenance. Avant, c'était un poste de coût. Aujourd'hui, c'est un levier de conformité GMP que l'auditeur remarque positivement. »</p>
+        <footer>— Directeur de site · Production stérile</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation projet">
+  <a class="pager-prev" href="/projets/prj-014-biw.html">← Projet précédent</a>
+  <a class="pager-all" href="/projets.html">Tous les projets</a>
+  <a class="pager-next" href="/projets/prj-027-atterrissage.html">Projet suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

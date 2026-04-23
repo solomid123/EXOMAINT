@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FEA non-linéaire : le piège des conditions aux limites — Blog ExoMaintenance</title>
+<meta name="description" content="Trois erreurs classiques qui invalident silencieusement vos simulations de crash et de contact." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="blog">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/blog.html">Blog</a><span class="sep">/</span><span>Article</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">22.03.2026</span>
+    <div class="tile-tags"><span>FEA</span><span>Non-linéaire</span><span>Contact</span></div>
+  </div>
+  <h1>FEA non-linéaire : <em>le piège des conditions aux limites</em>.</h1>
+  <p class="lede">Trois erreurs classiques qui invalident silencieusement vos simulations de crash — et comment les éviter sans doubler le temps de calcul.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta"><span class="mono">Auteur</span><strong>Sarah M. · Lead simulation</strong></div>
+  <div class="case-meta"><span class="mono">Temps de lecture</span><strong>9 min</strong></div>
+  <div class="case-meta"><span class="mono">Niveau</span><strong>Avancé</strong></div>
+  <div class="case-meta"><span class="mono">Mots-clés</span><strong>Contact · Hertz · Abaqus · LS-DYNA</strong></div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">En résumé</span>
+    <h4>Un modèle parfait avec des CL fausses reste faux.</h4>
+    <p>Le contact, le grand déplacement et la plasticité sont sensibles à la manière dont on contraint les degrés de liberté. Nous décomposons trois erreurs que nous retrouvons dans 80 % des modèles que nous auditons chez nos clients — et les corrections qui les éliminent.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">80 %</span><span class="kpi-lbl mono">Modèles audités erronés</span></div>
+      <div class="kpi-block"><span class="kpi-val">+18 %</span><span class="kpi-lbl mono">Précision gagnée</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Erreur 1</span>
+      <h2>L'encastrement parfait qui ne reflète pas la réalité.</h2>
+      <p>Quand on modélise une ferrure d'atterrissage, une poutre de châssis ou un palier de turbine, l'instinct est d'encastrer la base. Tous les degrés de liberté bloqués. Résultat : une raideur artificielle qui concentre les contraintes à l'interface et masque les modes de déformation réels de l'assemblage.</p>
+      <p>Nous avons mesuré l'effet sur un modèle de train avant (voir <a href="/projets/prj-027-atterrissage.html">PRJ · 027</a>). Avec un encastrement parfait, la contrainte équivalente au joint soudé était de 412 MPa — 18 % au-dessus de la mesure par jauges. En remplaçant l'encastrement par une sous-structuration du bâti fuselage avec une matrice de raideur réduite (CB-Guyan), la contrainte tombait à 348 MPa, soit un écart de 2 % par rapport à l'essai physique. Le coût : +12 % de nœuds sur le modèle global, mais un gain de confiance total.</p>
+      <p><strong>La règle :</strong> si le modèle ne contient pas le corps auquel la pièce est attachée, il faut soit modéliser ce corps jusqu'à une zone de contrainte quasi-nulle, soit utiliser une sous-structuration. L'encastrement parfait est acceptable uniquement si la zone d'intérêt est à plus de 3 longueurs caractéristiques de l'encastrement.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Erreur 2</span>
+      <h2>Le contact « tied » qui tue le glissement.</h2>
+      <p>Le contact pénalisé est coûteux. Le contact tied (nœuds collés) est tentant. Mais dans un assemblage mécanique où le glissement relatif est le phénomène dominant — roue-rail, rotule-cuve, boulon-assemblage — le tied contact transforme un problème de mécanique du contact en un problème de mécanique des milieux continus artificiellement raidis.</p>
+      <p>Sur le bogie grande vitesse (<a href="/projets/prj-042-bogie.html">PRJ · 042</a>), le passage d'un contact tied à un contact pénalisé avec frottement Coulomb variable a révélé une zone de micro-glissement à l'approche du passage en courbe (R &lt; 1 500 m). Cette zone, invisible en tied, générait une dissipation énergétique de 340 J/m qui atténuait les vibrations de guidage. Le modèle tied surestimait les efforts latéraux de 22 % — ce qui, en fatigue, se traduit par une sous-estimation de la durée de vie de 40 %.</p>
+      <p><strong>La règle :</strong> dès qu'il y a une interface entre deux matériaux différents et une possibilité de mouvement relatif, le contact doit être pénalisé avec une loi de frottement mesurée ou calée. Si le temps de calcul est prohibitif, utiliser une sous-modélisation : global en tied, local en contact fin, avec interpolation des déplacements.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Erreur 3</span>
+      <h2>La charge ponctuelle qui crée une singularité.</h2>
+      <p>Appliquer une force concentrée sur un nœud d'un modèle 3D solide crée une contrainte théoriquement infinie. Dans la pratique, le solveur retourne une valeur arbitrairement élevée, fonction de la taille d'élément locale. Cette singularité est souvent « corrigée » à la main par l'ingénieur qui lisse la contrainte — ce qui revient à détruire l'information.</p>
+      <p>Sur le stepper DUV (<a href="/projets/prj-039-stepper.html">PRJ · 039</a>), une force de réaction du ventilateur de climatisation était modélisée par une pression répartie sur la surface de contact du support, mesurée par un capteur de force piezoélectrique. La substitution d'une force ponctuelle par une pression répartie sur 120 cm² a éliminé la singularité et permis de corréler la réponse harmonique du modèle à l'essai vibrométrie à 94 % sur les trois premiers modes — contre 67 % avec la force ponctuelle.</p>
+      <p><strong>La règle :</strong> toute action mécanique réelle s'exerce sur une surface. Si vous ne connaissez pas cette surface, mesurez-la. Si vous ne pouvez pas la mesurer, modélisez-la comme une zone de Hertz ou de Boussinesq de diamètre estimé. Jamais de force ponctuelle sur un solide 3D pour un post-traitement contrainte.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Méthodologie</span>
+      <h2>Notre check-list de validation des CL.</h2>
+      <p>Avant de lancer un calcul non-linéaire chez ExoMaintenance, nous validons les conditions aux limites par trois questions :</p>
+      <ul>
+        <li><strong>Le corps manquant est-il modélisé ?</strong> Si non, la sous-structuration ou la longueur de transition est-elle justifiée ?</li>
+        <li><strong>Les interfaces glissantes sont-elles en contact pénalisé ?</strong> Si non, la justification tied est-elle documentée et la zone d'intérêt est-elle à plus de 5× la taille d'élément de l'interface ?</li>
+        <li><strong>Les charges sont-elles réparties ?</strong> Si une force ponctuelle est inévitable, le post-traitement contrainte est-il exclu de la zone de singularité ?</li>
+      </ul>
+      <p>Ces trois questions, posées systématiquement, ont permis de porter notre taux de corrélation essais/simulation de 79 % à 94 % sur les projets aéronautiques et ferroviaires des deux dernières années. Le temps supplémentaire de préparation du modèle est de 4 à 8 h. Le temps économisé en itérations de validation est de 2 à 3 semaines.</p>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Bilan mesuré</span>
+      <h2>Des modèles qui disent vrai.</h2>
+      <div class="results-bar">
+        <div class="r-item"><span class="r-val">+15 pts</span><span class="r-lbl">Corrélation moyenne essais/sim</span></div>
+        <div class="r-item"><span class="r-val">−2,3</span><span class="r-lbl">Semaines gagnées en moyenne</span></div>
+        <div class="r-item"><span class="r-val">0</span><span class="r-lbl">Singularités non justifiées</span></div>
+        <div class="r-item"><span class="r-val">94 %</span><span class="r-lbl">Corrélation post-correction</span></div>
+        <div class="r-item"><span class="r-val">100 %</span><span class="r-lbl">Projets avec check-list CL</span></div>
+      </div>
+      <p class="results-note">La meilleure simulation n'est pas celle qui calc vite. C'est celle qui calcule juste — et qui le prouve.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation blog">
+  <a class="pager-prev" href="/blog/amdec-mieux-tableur.html">← Article précédent</a>
+  <a class="pager-all" href="/blog.html">Tous les articles</a>
+  <a class="pager-next" href="/blog/maintenance-predictive-donnees.html">Article suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

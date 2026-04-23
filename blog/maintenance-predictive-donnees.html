@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maintenance prédictive : ce que la donnée ne vous dira pas — Blog ExoMaintenance</title>
+<meta name="description" content="Le contexte mécanique reste indispensable — sans lui, les signaux faibles deviennent du bruit." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="blog">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/blog.html">Blog</a><span class="sep">/</span><span>Article</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">08.03.2026</span>
+    <div class="tile-tags"><span>Prédictif</span><span>ML</span><span>Signal</span></div>
+  </div>
+  <h1>Maintenance prédictive : <em>ce que la donnée ne vous dira pas</em>.</h1>
+  <p class="lede">Le contexte mécanique reste indispensable — sans lui, les signaux faibles deviennent du bruit, et les modèles de ML deviennent des générateurs de fausses alertes.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta"><span class="mono">Auteur</span><strong>Théo L. · Data scientist industriel</strong></div>
+  <div class="case-meta"><span class="mono">Temps de lecture</span><strong>8 min</strong></div>
+  <div class="case-meta"><span class="mono">Niveau</span><strong>Intermédiaire</strong></div>
+  <div class="case-meta"><span class="mono">Mots-clés</span><strong>ML · RUL · SCADA · bruit · contexte</strong></div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">En résumé</span>
+    <h4>Un modèle de ML sans physique est un oracle aveugle.</h4>
+    <p>Les données brutes — vibrations, températures, courants — contiennent des corrélations fallacieuses. Seule une modélisation physique des mécanismes de dégradation permet de séparer le signal prédictif du bruit contextuel.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">97 %</span><span class="kpi-lbl mono">Précision à 6 mois</span></div>
+      <div class="kpi-block"><span class="kpi-val">−18 %</span><span class="kpi-lbl mono">Downtime offshore</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Le mythe</span>
+      <h2>Plus de données = plus de prédictions.</h2>
+      <p>Le marketing des solutions IoT et ML industriel promeut l'idée que l'accumulation de données, associée à des algorithmes sophistiqués, produira automatiquement des prédictions fiables. L'expérience sur le terrain contredit cette équation. Un parc éolien de 28 turbines génère 1,2 milliard de points de données par an (voir <a href="/projets/prj-033-eolien.html">PRJ · 033</a>). Avant notre intervention, le client utilisait un modèle de régression logistique sur 18 variables SCADA avec un taux de fausses alertes de 22 %. Les techniciens avaient cessé de croire les alertes rouges — le syndrome du loup qui crie.</p>
+      <p>Le problème n'était pas le volume de données. C'était l'absence de contexte mécanique. Une élévation de température d'huile peut signaler un roulement dégradé — ou un simple changement de viscosité d'huile à l'automne. Une oscillation de couple peut indiquer un déséquilibre aérodynamique — ou une rafale de vent de 12 secondes. Sans modèle physique qui distingue ces hypothèses, le ML apprend des corrélations saisonnières, pas des causalités de dégradation.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— La réponse</span>
+      <h2>Trois couches, pas une.</h2>
+      <p>Notre approche sur le parc éolien a été de superposer trois couches d'analyse, chacune filtrant le bruit de la précédente :</p>
+      <ul>
+        <li><strong>Couche physique (modèle ROM) :</strong> un modèle réduit d'ordre basé sur la mécanique des roulements (Lundberg-Palmgren) et la lubrification (facteur κ). Cette couche traduit les mesures brutes (vibration, température, couple) en variables physiques : profondeur de spall, épaisseur de film lubrifiant, charge dynamique équivalente. Ces variables ont un sens mécanique direct et évoluent monotonement avec la dégradation.</li>
+        <li><strong>Couche statistique (survie bayésienne) :</strong> un modèle de Cox avec covariables dynamiques qui intègre la distribution de dégradation du parc et la littérature constructeur. Cette couche fournit une probabilité de défaillance à 6, 12, 24 mois, avec un intervalle de crédibilité. Elle ne prédit pas une date unique — elle fournit une distribution de risque, ce qui est compatible avec la planification maintenance.</li>
+        <li><strong>Couche apprentissage (VAE) :</strong> un auto-encodeur variationnel entraîné sur les données saines du parc. Il détecte les anomalies subtiles (dérives thermiques lentes, oscillations de couple anormales) qui ne correspondent à aucun mode de dégradation connu — signalant un événement rare ou un capteur défaillant.</li>
+      </ul>
+      <p>La fusion des trois couches par un mélange bayésien pondéré a réduit le taux de fausses alertes à 4 % et augmenté la précision prédictive à 6 mois à 97 %. Le gain ne vient pas de l'algorithme de ML seul. Il vient de la structure physique qui guide l'apprentissage.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Cas pratique</span>
+      <h2>Le roulement qui ne criait pas.</h2>
+      <p>En juillet 2024, le VAE a signalé une anomalie sur la turbine T14 : une légère élévation de la variance du signal de vibration à 47 Hz, hors de la bande des fréquences de roulement identifiées (BPFO, BPFI, BSF). Les seuils vibratoires classiques (ISO 10816-21) ne déclenchaient aucune alerte. La couche physique a révélé que cette fréquence correspondait à une fréquence de résonance du carter de génératrice, excitée par une augmentation de jeu radial du roulement rotor.</p>
+      <p>Le modèle ROM a estimé un jeu de 18 µm, contre 8 µm nominal. La couche statistique a donné une probabilité de 73 % de défaillance avant 8 mois. L'intervention programmée a eu lieu lors de la prochaine fenêtre météo favorable (3 semaines plus tard), évitant un remplacement d'urgence en mer hivernale à 45 k€/jour de navire. Le roulement démonté montrait un spall de 2,1 mm de profondeur — exactement la valeur prédite par le modèle physique à 3 % près.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Ce qu'il faut retenir</span>
+      <h2>Le ML est un amplificateur, pas un détecteur.</h2>
+      <p>Un modèle de machine learning, aussi sophistiqué soit-il, ne peut pas inventer une causalité physique qu'il n'a jamais vue. Il amplifie les patterns présents dans les données. Si ces données contiennent du bruit saisonnier, des changements de consigne opérationnelle, ou des maintenances qui masquent la dégradation naturelle, le ML apprendra ces biais.</p>
+      <p>La solution n'est pas de collecter plus de données. C'est de structurer les données autour des variables physiques de dégradation : la profondeur de fissure, l'épaisseur de film lubrifiant, la température de flash au contact, la déformation plastique cumulée. Ces variables ne sont pas mesurées directement. Elles sont inférées par des modèles physiques calés sur l'historique. C'est ce pont entre la mesure brute et la variable physique qui transforme la maintenance prédictive en science — et non en loterie.</p>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Bilan mesuré</span>
+      <h2>Quand la physique guide l'apprentissage.</h2>
+      <div class="results-bar">
+        <div class="r-item"><span class="r-val">97 %</span><span class="r-lbl">Précision prédictive à 6 mois</span></div>
+        <div class="r-item"><span class="r-val">4 %</span><span class="r-lbl">Taux de fausses alertes</span></div>
+        <div class="r-item"><span class="r-val">11</span><span class="r-lbl">Dégradations anticipées</span></div>
+        <div class="r-item"><span class="r-val">3 %</span><span class="r-lbl">Écart prédiction / mesure spall</span></div>
+        <div class="r-item"><span class="r-val">340 k€</span><span class="r-lbl">Économie maintenance / an</span></div>
+      </div>
+      <p class="results-note">Le client a commandé l'extension du jumeau numérique à un second parc de 14 turbines. Le modèle ROM, calé une fois, a été réutilisé avec un simple recalage des paramètres de transfert thermique — preuve que la physique voyage mieux que les données.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation blog">
+  <a class="pager-prev" href="/blog/fea-non-lineaire-pieges.html">← Article précédent</a>
+  <a class="pager-all" href="/blog.html">Tous les articles</a>
+  <a class="pager-next" href="/blog/topologie-fabricabilite.html">Article suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

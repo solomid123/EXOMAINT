@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PRJ · 033 — Jumeau numérique parc éolien — ExoMaintenance</title>
+<meta name="description" content="Jumeau numérique temps réel d'une flotte de 28 turbines offshore. Prédiction de RUL et maintenance conditionnelle par modèles de dégradation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="projets">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/projets.html">Projets</a><span class="sep">/</span><span>PRJ · 033</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">PRJ · 033</span>
+    <div class="tile-tags"><span>Énergie</span><span>Jumeau numérique</span><span>ML</span></div>
+  </div>
+  <h1>Surveillance multi-physique — <em>parc éolien offshore</em></h1>
+  <p class="lede">Accéder à une éolienne en mer coûte 15 k€ par rotation d'hélicoptère. Nous avons construit un jumeau numérique qui anticipe les pannes 2,4 ans avant qu'elles n'arrivent.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta">
+    <span class="mono">Client</span>
+    <strong>Opérateur éolien offshore · Manche Nord</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Durée</span>
+    <strong>24 mois</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Année</span>
+    <strong>2023 – 2025</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Normes</span>
+    <strong>IEC 61400-25 · ISO 13374 · DNV-ST-0126</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Outils</span>
+    <strong>Python · TensorFlow · InfluxDB · Grafana</strong>
+  </div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">Synthèse</span>
+    <h4>De la télémétrie à la décision</h4>
+    <p>28 turbines de 8 MW génèrent 1,2 milliard de points de données par an. Nous avons transformé ce bruit en signal prédictif sur trois domaines de dégradation : roulements multirotor, engrenages de multiplication, et aérodynamique d'hélice.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">−18 %</span><span class="kpi-lbl mono">Downtime annuel</span></div>
+      <div class="kpi-block"><span class="kpi-val">+2,4 ans</span><span class="kpi-lbl mono">RUL moyen anticipé</span></div>
+      <div class="kpi-block"><span class="kpi-val">28</span><span class="kpi-lbl mono">Actifs connectés</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Contexte &amp; enjeu</span>
+      <h2>La maintenance offshore est un problème d'accès.</h2>
+      <p>Le parc de 28 turbines (224 MW cumulés) est situé à 35 km des côtes. Les conditions météo limitent les accès à 180 jours par an, et une intervention d'urgence nécessite un navire de service (SOV) à 35 k€/jour ou un hélicoptère à 15 k€/rotation. Le client visait une réduction de 15 % de la maintenance corrective, qui représentait 42 % du budget OPEX.</p>
+      <p>Les pannes historiques étaient dominées par trois familles : roulements rotor (42 %), engrenages de multiplicateur (31 %) et dégradation aérodynamique dûe au dépôt de sel + érosion de bord de fuite (18 %). Aucun modèle de dégradation physique n'était disponible pour les roulements — seuls des seuils vibratoires fixes, calés sur la norme ISO 10816-21, déclenchaient des alertes déjà tardives.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Démarche technique</span>
+      <h2>Trois modèles, une boucle unique.</h2>
+      <p>Nous avons construit un jumeau numérique multi-couche : couche physique (modèles réduits d'ordre faible basés sur la mécanique des roulements et l'endommagement de Hertz), couche statistique (survie bayésienne sur 18 pannes historiques du parc), et couche apprentissage (LSTM auto-encodeurs pour détection d'anomalie sur signaux multivariés).</p>
+      <ul>
+        <li><strong>Couche physique :</strong> modèle de dégradation par fatigue de surface (spall) basé sur la théorie de Lundberg-Palmgren. Intégration de la lubrification (viscosité base, teneur eau) via le facteur de viscosité κ. Prédiction de la profondeur de spall en fonction du nombre de cycles et de la charge dynamique mesurée par jauges de couple au rotor.</li>
+        <li><strong>Couche statistique :</strong> modèle de Cox bayésien avec covariables dynamiques (vitesse vent, température huile, charge électrique). Prior informatif issu de la littérature et de 14 pannes similaires du même constructeur de roulements. Livraison d'une distribution de probabilité de défaillance à 6, 12, 24 mois.</li>
+        <li><strong>Couche apprentissage :</strong> auto-encodeur variationnel (VAE) entraîné sur 18 mois de données saines. Seuil d'anomalie calé à 2,5 σ sur l'espace latent. Détection précoce de 11 événements subtils (dérive thermique lente, oscillation de couple liée à glace) avant franchissement des seuils vibratoires.</li>
+      </ul>
+      <p>Les trois couches sont fusionnées par un modèle de mélange bayésien pondéré par la fiabilité historique de chaque couche sur le parc. La prédiction finale de RUL (Remaining Useful Life) est mise à jour chaque semaine avec les nouvelles mesures SCADA et les résultats d'analyse d'huile.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Stack &amp; méthodologie</span>
+      <h2>Données, modèles, actions.</h2>
+      <div class="specs-grid">
+        <div class="spec">
+          <span class="mono">01</span>
+          <h5>Ingestion</h5>
+          <p>SCADA 10 Hz (vent, puissance, pas, températures) → InfluxDB. Analyse d'huile ICP-OES mensuelle. Inspection drones annuelle (thermographie + photogrammétrie).</p>
+        </div>
+        <div class="spec">
+          <span class="mono">02</span>
+          <h5>Modélisation physique</h5>
+          <p>Modèle ROM rotor/train épicycloïdal en Python (SymPy + SciPy). Intégration du contact Hertz, du facteur de viscosité κ et de la fatigue de surface par loi de Miner modifiée.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">03</span>
+          <h5>Apprentissage</h5>
+          <p>VAE entraîné sur GPU (TensorFlow) avec 1,2 Md points. Espace latent 32D. Clustering t-SNE pour catégorisation des modes de dégradation.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">04</span>
+          <h5>Interface &amp; actions</h5>
+          <p>Dashboard Grafana avec alertes graduées (verte / orange / rouge). Planification maintenance conditionnelle intégrée au CMMS client. Rapport mensuel de RUL par actif.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Résultats mesurés</span>
+      <h2>Le vent ne s'arrête pas. Les pannes, si.</h2>
+      <div class="results-bar">
+        <div class="r-item">
+          <span class="r-val">−18 %</span>
+          <span class="r-lbl">Downtime annuel (hors météo)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">+2,4 ans</span>
+          <span class="r-lbl">RUL moyen anticipé vs seuil fixe</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">11</span>
+          <span class="r-lbl">Dégradations détectées en amont</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">340 k€</span>
+          <span class="r-lbl">Économie maintenance / an</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">97 %</span>
+          <span class="r-lbl">Précision prédictive à 6 mois</span>
+        </div>
+      </div>
+      <p class="results-note">La solution est déployée en production depuis 18 mois. Le taux de fausses alertes est inférieur à 4 % (vs 22 % sur l'ancien système de seuils fixes). Le client a commandé l'extension à un second parc de 14 turbines en mer Baltique.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Témoignage client</span>
+      <blockquote class="case-quote">
+        <p>« Pour la première fois, nos planificateurs de maintenance savent quelle turbine inspecter avant d'ouvrir la météo. Le RUL de 2 ans nous permet de regrouper les interventions par navire. »</p>
+        <footer>— Directeur exploitation éolien · Parc Manche Nord</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation projet">
+  <a class="pager-prev" href="/projets/prj-027-atterrissage.html">← Projet précédent</a>
+  <a class="pager-all" href="/projets.html">Tous les projets</a>
+  <a class="pager-next" href="/projets/prj-039-stepper.html">Projet suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

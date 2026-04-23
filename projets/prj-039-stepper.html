@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PRJ · 039 — Stepper lithographie — ExoMaintenance</title>
+<meta name="description" content="Diagnostic et retrofit nanométrique d'un stepper DUV. Rétablissement de la répétabilité à ±2 nm en 6 semaines." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="projets">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/projets.html">Projets</a><span class="sep">/</span><span>PRJ · 039</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">PRJ · 039</span>
+    <div class="tile-tags"><span>Semiconducteurs</span><span>Précision</span><span>Retrofit</span></div>
+  </div>
+  <h1>Stepper lithographie — <em>récupération nanométrique</em></h1>
+  <p class="lede">Un stepper DUV vieillissant dérivait de 7 nm par wafer. À 5 nm, le client perdait un lot entier. Nous l'avons ramené à ±2 nm en 6 semaines — sans arrêt prolongé de la ligne.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta">
+    <span class="mono">Client</span>
+    <strong>Fondeur de semiconducteurs · nœud 7 nm</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Durée</span>
+    <strong>6 semaines</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Année</span>
+    <strong>2024</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Normes</span>
+    <strong>ISO 10110 · SEMI S2 · SEMI E10</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Outils</span>
+    <strong>Interférométrie · vibrométrie laser · CAO/CAM</strong>
+  </div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">Synthèse</span>
+    <h4>La précision comme contrainte de production</h4>
+    <p>Quand un nanomètre de dérive équivaut à 12 000 wafers perdus, le diagnostic ne peut pas être itératif. Nous avons isolé la source de dérive en 72 heures et livré une solution permanente en 6 semaines.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">±2 nm</span><span class="kpi-lbl mono">Répétabilité finale</span></div>
+      <div class="kpi-block"><span class="kpi-val">6 sem.</span><span class="kpi-lbl mono">Temps de récupération</span></div>
+      <div class="kpi-block"><span class="kpi-val">100 %</span><span class="kpi-lbl mono">OEE après requalification</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Contexte &amp; enjeu</span>
+      <h2>7 nm de dérive, 2,4 M€ de perte.</h2>
+      <p>Le stepper DUV (193 nm, ASML NXT:2050i) est le goulot d'étranglement de la ligne de gravure du nœud 7 nm. Il expose 240 wafers/jour avec un overlay &lt; 3 nm (mean + 3σ) entre deux couches. En décembre 2023, le client a constaté une dérive progressive de l'overlay intra-champ : de 2,1 nm à 7,3 nm en 11 semaines. La cause n'était pas identifiée par le service maintenance constructeur, qui suspectait un recalibrage optique.</p>
+      <p>Le coût d'un arrêt prolongé (＞ 3 jours) était estimé à 1,8 M€ par jour de production perdue. L'achat d'un équipement de remplacement était impossible (délai 18 mois). Le client nous a mandatés pour un diagnostic rapide et un retrofit mécanique qui préserve l'architecture optique existante.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Démarche technique</span>
+      <h2>Du symptôme à la racine en 72 heures.</h2>
+      <p>Nous avons écarté l'hypothèse optique en 4 heures (recalibrage validé, aberrations Zernike dans la spéc). Le problème était mécanique : une dérive thermo-élastique du wafer stage liée à la dégradation des isolateurs actifs de la dalle de granite de base.</p>
+      <ul>
+        <li><strong>Phase 1 — Diagnostic multi-physique (72 h) :</strong> vibrométrie laser Doppler 3D sur le wafer stage (résolution 0,05 nm/√Hz), thermographie infrarouge haute résolution (15 mK, 640×512) sur le granite et le bâti, mesure de déformation par interférométrie à décalage de phase (Twyman-Green) entre deux miroirs de référence fixés sur le stage. Résultat : amplitude de vibration du stage à 21 Hz (fréquence propre identifiée) de 4,2 nm, excitée par un déséquilibre ventilateur climatisation salle blanche à 100 m de distance. Le granite n'isolait plus suffisamment (transmissibilité passée de 0,02 à 0,18 à 21 Hz).</li>
+        <li><strong>Phase 2 — Modélisation (96 h) :</strong> modèle thermo-élastique couplé du granite-bâti-stage (Ansys Mechanical, éléments SOLID186, maillage 2,1 M). Analyse modale jusqu'à 200 Hz avec amortissement structural (β = 2×10⁻⁴). Simulation de la réponse au déséquilibre ventilo via force harmonique à 21 Hz. Validation de l'excitation source par capteur de force piezoélectrique sur le socle du ventilateur.</li>
+        <li><strong>Phase 3 — Retrofit (18 j) :</strong> remplacement des isolateurs passifs du granite par un système actif à 6 degrés de liberté (capteurs géophones + actionneurs piézoélectriques, boucle de contrôle PID à 500 Hz). Re-usinage des glissières aérostatiques du stage (rectitude &lt; 0,3 µm sur 300 mm) après mesure de dérive géométrique. Recalibration interferométrique de la position stage-wafer (12 points, compensation thermique temps réel).</li>
+        <li><strong>Phase 4 — Requalification (10 j) :</strong> 1 000 wafers test à travers 14 lots, mesure overlay par KLA Archer. Overlay mean + 3σ = 1,8 nm. Aucun lot rejeté. Requalification SEMI S2 validée par le client.</li>
+      </ul>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Stack &amp; méthodologie</span>
+      <h2>Nanomètres, pas approximations.</h2>
+      <div class="specs-grid">
+        <div class="spec">
+          <span class="mono">01</span>
+          <h5>Mesure vibration</h5>
+          <p>Vibromètre laser Doppler 3D (Polytec). Résolution 0,05 nm/√Hz. FFT sur 60 s, moyenne 64. Détection pic à 21,07 Hz ± 0,02 Hz.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">02</span>
+          <h5>Thermographie</h5>
+          <p>Caméra FLIR A700sc. NetD &lt; 20 mK. Cartographie 3D thermique du granite sur 72 h pour identifier gradients et dérive de température ambiante.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">03</span>
+          <h5>Isolation active</h5>
+          <p>6 capteurs géophones (Sercel L-22) + 6 actionneurs piézo (PI Ceramic P-888). Boucle à 500 Hz, atténuation &gt; 25 dB à 21 Hz. Alimentation linéaire dédiée pour éviter le bruit de commutation.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">04</span>
+          <h5>Validation overlay</h5>
+          <p>Mesure KLA Archer 7500 sur 1 000 wafers. Overlay mean + 3σ = 1,8 nm. Reproductibilité inter-lot Cpk = 1,67. SEMI S2 validé.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Résultats mesurés</span>
+      <h2>La ligne a repris. Les lots aussi.</h2>
+      <div class="results-bar">
+        <div class="r-item">
+          <span class="r-val">±2 nm</span>
+          <span class="r-lbl">Répétabilité overlay (vs 7,3 nm)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">6 sem.</span>
+          <span class="r-lbl">Temps total diagnostic + retrofit</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">0</span>
+          <span class="r-lbl">Lots rejetés post-réparation</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">100 %</span>
+          <span class="r-lbl">OEE rétabli (vs 73 %)</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">25 dB</span>
+          <span class="r-lbl">Atténuation vibration à 21 Hz</span>
+        </div>
+      </div>
+      <p class="results-note">Le système d'isolation active est en service continu depuis 14 mois sans dérive mesurable. Le client a commandé le même retrofit pour un second stepper de la même génération, avec un planning de 4 semaines cette fois (réutilisation directe de la conception).</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Témoignage client</span>
+      <blockquote class="case-quote">
+        <p>« Le constructeur nous disait de changer l'optique. ExoMaintenance a trouvé que le problème venait d'un ventilateur à 100 mètres. C'est exactement le type de diagnostic que nous ne pouvons pas faire en interne. »</p>
+        <footer>— Responsable maintenance process · Fondeur 7 nm</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation projet">
+  <a class="pager-prev" href="/projets/prj-033-eolien.html">← Projet précédent</a>
+  <a class="pager-all" href="/projets.html">Tous les projets</a>
+  <a class="pager-next" href="/projets/prj-042-bogie.html">Projet suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

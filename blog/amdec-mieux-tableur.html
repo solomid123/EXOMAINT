@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pourquoi l'AMDEC mérite mieux qu'un tableur — Blog ExoMaintenance</title>
+<meta name="description" content="Comment transformer un exercice documentaire en outil de pilotage quotidien de la disponibilité." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="blog">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/blog.html">Blog</a><span class="sep">/</span><span>Article</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">05.04.2026</span>
+    <div class="tile-tags"><span>AMDEC</span><span>RCM</span><span>Maintenance</span></div>
+  </div>
+  <h1>Pourquoi l'AMDEC <em>mérite mieux qu'un tableur</em>.</h1>
+  <p class="lede">Comment transformer un exercice documentaire en outil de pilotage quotidien de la disponibilité.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta"><span class="mono">Auteur</span><strong>Clément R. · Ingénieur fiabilité</strong></div>
+  <div class="case-meta"><span class="mono">Temps de lecture</span><strong>7 min</strong></div>
+  <div class="case-meta"><span class="mono">Niveau</span><strong>Intermédiaire</strong></div>
+  <div class="case-meta"><span class="mono">Mots-clés</span><strong>AMDEC · RCM · criticité · disponibilité</strong></div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">En résumé</span>
+    <h4>Un tableur capture le passé. Un système de criticité dynamique anticipe le futur.</h4>
+    <p>La AMDEC classique fige les priorités. Or la criticité d'un équipement évolue avec l'âge, la charge, la saisonnalité et les modifications de process. Nous exposons une méthode pour intégrer ces variations dans un tableau de bord opérationnel.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">40 %</span><span class="kpi-lbl mono">Économie temps d'arrêt</span></div>
+      <div class="kpi-block"><span class="kpi-val">12</span><span class="kpi-lbl mono">Équipes formées</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Le problème</span>
+      <h2>La AMDEC comme acte de foi.</h2>
+      <p>Le jour où l'AMDEC est signée, elle est déjà dépassée. Pas parce que les modes de défaillance ont changé — ceux-ci sont stables — mais parce que leur fréquence relative évolue. Un compresseur qui tournait 60 % du temps en hiver en fait 85 % en été. Un moteur soumis à des démarrages fréquents sur un batch court voit sa criticité « occurrence » doubler sans que personne ne relise la matrice.</p>
+      <p>Le tableur Excel qui circule dans les réunions de maintenance trimestrielles contient les bonnes hypothèses du jour J. Mais il ne réagit pas aux alertes vibratoires du mois suivant, ni au déclassement d'une pièce de rechange qui allonge le MTTR de 4 heures à 18 heures.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— La méthode</span>
+      <h2>De la matrice statique à l'arbre de décision.</h2>
+      <p>Chez ExoMaintenance, nous séparons la AMDEC « fondatrice » — l'analyse des modes, leurs causes et conséquences — de la criticité « opérationnelle », qui est recalculée en temps réel à partir de trois flux de données :</p>
+      <ul>
+        <li><strong>État technique :</strong> résultats de surveillance vibratoire, thermographie, analyse d'huile. Chaque mesure est traduite en indice de dégradation (0–100) par une loi de transfert calée sur l'historique de pannes du parc.</li>
+        <li><strong>Contexte d'exploitation :</strong> horaires de fonctionnement, cadence de production, criticité process (un batch vaccin vs un batch placebo n'a pas la même valeur).</li>
+        <li><strong>Logistique maintenance :</strong> disponibilité pièces de rechange, compétences disponibles sur le site, fenêtres d'intervention (météo, arrêts planifiés).</li>
+      </ul>
+      <p>Ces trois indices sont fusionnés par un arbre de décision pondéré, non par une multiplication simple (S×O×D). Pourquoi ? Parce que la criticité process n'est pas multiplicative : une défaillance à 99 % de probabilité sur un équipement de confort a un impact inférieur à une défaillance à 5 % sur un équipement critique. L'arbre permet de poser des seuils non linéaires et des règles conditionnelles : si criticité process = A ET indice dégradation &gt; 70, alors intervention sous 48 h quelle que soit la fréquence historique.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Cas pratique</span>
+      <h2>UTA pharmaceutique : de 14 h à 2,5 h de MTTR.</h2>
+      <p>Sur un parc de 42 unités de traitement d'air en salle blanche classe 7 (voir <a href="/projets/prj-021-hvac.html">PRJ · 021</a>), la AMDEC initiale classait les motoréducteurs en criticité moyenne (S=3, O=3, D=3 → 27). Mais l'analyse dynamique a révélé que 4 moteurs particuliers, situés sur des zones de surpression critique, avaient une criticité process latente de 5. L'indice de dégradation vibratoire sur ces 4 unités était à 82. L'arbre de décision a déclenché un remplacement programmé avant l'été, évitant 3 pannes en août.</p>
+      <p>Parallèlement, le CMMS a été restructuré pour afficher non pas la criticité AMDEC initiale, mais la criticité opérationnelle actualisée chaque lundi matin. Les techniciens de permanence voient désormais une liste priorisée : rouge (intervention &lt; 24 h), orange (planification cette semaine), vert (vérification mensuelle). Le tableur n'a pas disparu — il est devenu la mémoire du système, pas son cerveau.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Modèle opérationnel</span>
+      <h2>Ce que nous proposons à nos clients.</h2>
+      <p>Nous déployons l'arbre de criticité en trois phases :</p>
+      <div class="specs-grid">
+        <div class="spec"><span class="mono">01</span><h5>Capitalisation</h5><p>Récupération de la AMDEC existante, nettoyage des modes redondants, validation terrain avec les opérateurs et les techniciens.</p></div>
+        <div class="spec"><span class="mono">02</span><h5>Instrumentation</h5><p>Définition des capteurs ou des données CMMS nécessaires pour alimenter les trois indices. Intégration API dans le système existant ou déploiement de capteurs vibratoires/thermiques portables.</p></div>
+        <div class="spec"><span class="mono">03</span><h5>Pilotage</h5><p>Mise en place du tableau de bord hebdomadaire, formation des responsables maintenance à la lecture des priorités dynamiques, ajustement des règles après 3 mois de retour d'expérience.</p></div>
+        <div class="spec"><span class="mono">04</span><h5>Autonomie</h5><p>Transfert de la méthode et des outils à l'équipe interne. ExoMaintenance reste disponible pour recalage annuel et audit de criticité.</p></div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Bilan mesuré</span>
+      <h2>La AMDEC est vivante, ou elle ne sert à rien.</h2>
+      <div class="results-bar">
+        <div class="r-item"><span class="r-val">−40 %</span><span class="r-lbl">Temps d'arrêt non planifié</span></div>
+        <div class="r-item"><span class="r-val">+18 pts</span><span class="r-lbl">Disponibilité UTA critiques</span></div>
+        <div class="r-item"><span class="r-val">12</span><span class="r-lbl">Équipes autonomes formées</span></div>
+        <div class="r-item"><span class="r-val">3</span><span class="r-lbl">Pannes évitées (été 2024)</span></div>
+        <div class="r-item"><span class="r-val">0</span><span class="r-lbl">Lots rejetés post-déploiement</span></div>
+      </div>
+      <p class="results-note">Le coût total de possession de la maintenance a baissé de 28 % sur 18 mois, non parce que nous avons réduit les interventions, mais parce que nous avons déplacé les ressources de l'urgence vers la prévention ciblée.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation blog">
+  <a class="pager-prev" href="/blog/maintenance-predictive-donnees.html">← Article précédent</a>
+  <a class="pager-all" href="/blog.html">Tous les articles</a>
+  <a class="pager-next" href="/blog/fea-non-lineaire-pieges.html">Article suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

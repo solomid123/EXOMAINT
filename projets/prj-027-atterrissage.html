@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PRJ · 027 — Ferrure d'atterrissage fatigue — ExoMaintenance</title>
+<meta name="description" content="Calcul non-linéaire et validation fatigue multiaxiale d'une ferrure d'atterrissage aéronautique. Corrélation essais / simulation à 97 %." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="projets">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/projets.html">Projets</a><span class="sep">/</span><span>PRJ · 027</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">PRJ · 027</span>
+    <div class="tile-tags"><span>Aéronautique</span><span>Non-linéaire</span><span>Fatigue</span></div>
+  </div>
+  <h1>Ferrure d'atterrissage — <em>validation critère fatigue</em></h1>
+  <p class="lede">Une ferrure d'atterrissage ne doit pas céder lors d'un atterrissage d'urgence à vitesse maximale, charge asymétrique et dérive latérale. Nous avons prouvé qu'elle tiendrait 60 000 cycles.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta">
+    <span class="mono">Client</span>
+    <strong>Équipementier aéronautique · programmes commerciaux</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Durée</span>
+    <strong>22 semaines</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Année</span>
+    <strong>2023</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Normes</span>
+    <strong>CS 25.571 · ED-14 / DO-160 · ASTM E466</strong>
+  </div>
+  <div class="case-meta">
+    <span class="mono">Outils</span>
+    <strong>Abaqus Explicit · nCode DesignLife · LMS Test.Lab</strong>
+  </div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">Synthèse</span>
+    <h4>Quand le coefficient de sécurité ne suffit plus</h4>
+    <p>La certification aéronautique exige une preuve, pas une hypothèse. Nous avons corréle trois niveaux de chargement extrême sur banc d'essai instrumenté et prouvé la tenue en fatigue sur la durée de vie de l'aéronef.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">97 %</span><span class="kpi-lbl mono">Corrélation essais</span></div>
+      <div class="kpi-block"><span class="kpi-val">3 configs</span><span class="kpi-lbl mono">Chargements extrêmes</span></div>
+      <div class="kpi-block"><span class="kpi-val">60 k</span><span class="kpi-lbl mono">Cycles validés</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Contexte &amp; enjeu</span>
+      <h2>Un atterrissage, c'est un crash contrôlé.</h2>
+      <p>La ferrure d'atterrissage étudiée est un train avant de type « semi-chevron » sur un avion commercial régional (74 passagers). Elle transmet les efforts d'impact au longeron de fuselage via deux poutres tubulaires en acier à haute résistance (35CrMo4) et un élément de chute oléopneumatique. La certification CS 25.571 impose de démontrer la résistance statique et la tenue en fatigue pour la vie de conception de l'aéronef (60 000 cycles), incluant les atterrissages durs et les virages au sol à charge maximale.</p>
+      <p>Le client avait identifié une zone de concentration de contraintes au niveau du soudage poutre-fuselage (rayon de gorge 3,2 mm) qui dépassait le critère de fatigue multiaxiale de von Mises modifié (Brown-Miller) sur les modèles linéaires existants. Le modèle simplifié sous-estimait les déformations locales de 18 % car il ignorait le contact rotule-cuve et le glissement relatif à l'interface oléo-chape.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Démarche technique</span>
+      <h2>Du non-linéaire à la vie résiduelle.</h2>
+      <p>Nous avons reconstruit le modèle éléments finis en trois étapes de fidélité croissante :</p>
+      <ul>
+        <li><strong>Global :</strong> modèle complet train-fuselage (1,8 M éléments C3D8R) sous chargement d'atterrissage statique 2,5 g vertical + 1,0 g latéral. Objectif : caler la raideur globale et les trajectoires cinématiques des rotules.</li>
+        <li><strong>Local :</strong> sous-modèle du joint soudé avec maillage fin (éléments 0,3 mm) et loi de comportement élasto-plastique cinématique + écrouissage combiné. Intégration des contraintes résiduelles de soudage mesurées par diffraction de rayons X.</li>
+        <li><strong>Contact :</strong> modélisation explicite du choc oléopneumatique (Abaqus/Explicit) avec frottement Coulomb variable (μ = 0,08–0,22 selon vitesse glissement) et amortissement visqueux.</li>
+      </ul>
+      <p>Le post-traitement fatigue a été mené sur le cycle d'atterrissage complet (compression, rebond, relaxation) en utilisant le critère multiaxial Brown-Miller avec correction moyenne de contrainte par la méthode Morrow. Les résultats ont été comparés à un essai de fatigue sur éprouvette soudée et à un essai de validation complet sur banc d'atterrissage hydraulique (capacité 500 kN, 4 vérins).</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Stack &amp; méthodologie</span>
+      <h2>Précision à chaque échelle.</h2>
+      <div class="specs-grid">
+        <div class="spec">
+          <span class="mono">01</span>
+          <h5>Maillage &amp; matériau</h5>
+          <p>1,8 M éléments hexa réduits (C3D8R) globaux, 0,3 mm au joint soudé. Loi Johnson-Cook calée sur essais de traction à vitesse 10⁻³–10² s⁻¹. Contraintes résiduelles RX intégrées.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">02</span>
+          <h5>Contact &amp; choc</h5>
+          <p>Contact pénalisé avec frottement variable. Amortissement oléopneumatique modélisé par élément dashpot non-linéaire. Pas de temps stable 2,5×10⁻⁷ s.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">03</span>
+          <h5>Fatigue multiaxiale</h5>
+          <p>Critère Brown-Miller (shear strain + normal strain) avec correction Morrow. Cycle stabilisé extrait du modèle explicite via projection sur base modale.</p>
+        </div>
+        <div class="spec">
+          <span class="mono">04</span>
+          <h5>Validation essais</h5>
+          <p>Banc d'atterrissage instrumenté : 48 jauges, 6 accéléromètres, 4 capteurs de force. Corrélation par MAC sur 12 modes, FRFF sur 3 configs de charge.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Résultats mesurés</span>
+      <h2>La preuve physique.</h2>
+      <div class="results-bar">
+        <div class="r-item">
+          <span class="r-val">97 %</span>
+          <span class="r-lbl">Corrélation essais / simulation</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">60 000</span>
+          <span class="r-lbl">Cycles validés sans fissuration</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">+18 %</span>
+          <span class="r-lbl">Précision vs modèle linéaire legacy</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">0,3 mm</span>
+          <span class="r-lbl">Taille éléments au joint critique</span>
+        </div>
+        <div class="r-item">
+          <span class="r-val">3 configs</span>
+          <span class="r-lbl">Chargements extrêmes couverts</span>
+        </div>
+      </div>
+      <p class="results-note">Le DAL (Document d'Analyse et de Justification) a été accepté par l'autorité de certification sans demande de clarification (rare sur ce type de dossier). Le client a depuis généralisé notre méthode de sous-modélage non-linéaire à l'ensemble de ses ferrures d'atterrissage.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Témoignage client</span>
+      <blockquote class="case-quote">
+        <p>« Le niveau de détail apporté sur le joint soudé et la prise en compte des contraintes résiduelles ont été le point clé de l'acceptation par la DOA. »</p>
+        <footer>— Chef de projet certification structures · Bureau d'études aéronautique</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation projet">
+  <a class="pager-prev" href="/projets/prj-021-hvac.html">← Projet précédent</a>
+  <a class="pager-all" href="/projets.html">Tous les projets</a>
+  <a class="pager-next" href="/projets/prj-033-eolien.html">Projet suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>

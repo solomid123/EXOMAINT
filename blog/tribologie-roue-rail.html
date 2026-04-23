@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tribologie roue-rail : le contact qui fait rouler le monde — Blog ExoMaintenance</title>
+<meta name="description" content="Ce que Hertz et Carter n'ont pas dit : le contact roue-rail est un problème de quatre corps, pas de deux." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/styles.css" />
+<script src="/includes.js" defer></script>
+</head>
+<body data-route="blog">
+
+<div id="site-header"></div>
+
+<section class="page-hero case-hero">
+  <nav class="crumbs"><a href="/index.html">Accueil</a><span class="sep">/</span><a href="/blog.html">Blog</a><span class="sep">/</span><span>Article</span></nav>
+  <div class="case-labels">
+    <span class="tile-num">28.01.2026</span>
+    <div class="tile-tags"><span>Tribologie</span><span>Ferroviaire</span><span>Contact</span></div>
+  </div>
+  <h1>Tribologie roue-rail : <em>le contact qui fait rouler le monde</em>.</h1>
+  <p class="lede">Ce que Hertz et Carter n'ont pas dit : le contact roue-rail est un problème de quatre corps, pas de deux — et la lubrification est aussi importante que le profil.</p>
+</section>
+
+<div class="case-meta-bar">
+  <div class="case-meta"><span class="mono">Auteur</span><strong>Marc-Antoine D. · Expert tribologie</strong></div>
+  <div class="case-meta"><span class="mono">Temps de lecture</span><strong>10 min</strong></div>
+  <div class="case-meta"><span class="mono">Niveau</span><strong>Expert</strong></div>
+  <div class="case-meta"><span class="mono">Mots-clés</span><strong>Hertz · Carter · usure · ferroviaire</strong></div>
+</div>
+
+<section class="case-body page-body">
+  <aside>
+    <span class="mono">En résumé</span>
+    <h4>Le contact roue-rail n'est pas un problème de matériau.</h4>
+    <p>C'est un problème multi-échelle où la géométrie du profil, la chimie du film lubrifiant, la mécanique du contact élasto-plastique et la dynamique véhicule-voie interagissent. Nous décrivons comment résoudre ces quatre échelles simultanément.</p>
+    <div class="case-kpi-side">
+      <div class="kpi-block"><span class="kpi-val">×2,1</span><span class="kpi-lbl mono">Durée de vie roue</span></div>
+      <div class="kpi-block"><span class="kpi-val">−35 %</span><span class="kpi-lbl mono">Usure latérale</span></div>
+    </div>
+  </aside>
+
+  <div class="case-flow">
+    <div class="case-section">
+      <span class="eyebrow">— Le mythe</span>
+      <h2>Un profil usé, une roue neuve.</h2>
+      <p>La maintenance ferroviaire classique traite l'usure du profil de roue comme une fatalité : on reprofile quand l'usure latérale (flange) atteint 32 mm, on change le bandage quand l'épaisseur résiduelle est inférieure au minimum réglementaire. Cette approche réactive ignore que l'usure est un symptôme, pas une cause. La cause est la combinaison du contact mécanique, de la lubrification insuffisante, et de la dynamique de guidage qui force le contact latéral en courbe.</p>
+      <p>Sur le projet de bogie grande vitesse (<a href="/projets/prj-042-bogie.html">PRJ · 042</a>), le taux d'usure latérale était de 1,2 mm/10 000 km sur les lignes à courbes serrées — trois fois la valeur nominale. Le client suspectait la qualité du rail. L'analyse tribologique a révélé que le profil S1002 standard concentrait la pression de Hertz sur une bande de 8 mm en virage, induisant un glissement latéral et une usure par fatigue de roulement que aucun matériau de roue ne pouvait résister indéfiniment.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Les quatre échelles</span>
+      <h2>Micro, méso, macro, et système.</h2>
+      <p>Nous avons décomposé le problème en quatre échelles couplées, chacune alimentant la suivante :</p>
+      <ul>
+        <li><strong>Micro-échelle — tribologie du film :</strong> mesure du coefficient de frottement sec et lubrifié sur banc disc-pin. Identification de la transition stick-slip liée à la température de flash (modèle Greenwood-Williamson modifié). Formulation d'un lubrifiant rail à base d'esters avec MoDTC, réduisant le frottement de 18 % sans dégrader l'adhérence freinage (μ ≥ 0,35 à 20 °C, validé sur banc dynamométrique).</li>
+        <li><strong>Méso-échelle — mécanique du contact :</strong> modélisation Hertz-Carter du contact roue-rail avec profil S1002/UIC60 usé mesuré par scanner 3D (10 µm). Calcul de la pression maximale de Hertz, du glissement longitudinal/crépage dans les courbes à 320 km/h, et prédiction de l'usure par Archard modifié. Le profil S1002 d'origine concentrait la pression sur une bande de 8 mm en virage — zone identifiée comme le lieu de l'usure accélérée.</li>
+        <li><strong>Macro-échelle — dynamique véhicule :</strong> modèle multibody Simpack du bogie + demi-voie (54 corps, 126 joints, 8 contacts roue-rail). Excitation par voie réelle mesurée (géométrie DTRACK, irregularités QN1). Validation de la stabilité (facteur de sécurité déverminage &gt; 1,5 selon EN 14363), du confort vertical (Wz ≤ 3,0 m/s²) et des efforts guidage (Y/Q ≤ 1,2).</li>
+        <li><strong>Système — validation terrain :</strong> 4 roues profilées neuves + 4 usées re-profilées avec le nouveau profil S1002-EM. Mesure d'usure tous les 2 000 km sur 12 000 km de ligne à courbes serrées (R &lt; 2 500 m). Jauges de contrainte sur bâti bogie, accéléromètres essieu. Corrélation complète entre prédiction et mesure.</li>
+      </ul>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Le résultat physique</span>
+      <h2>Un profil qui distribue la charge.</h2>
+      <p>La nouvelle géométrie, dérivée du S1002 par une correction conique progressive de 1/40 sur le coned tread et un rayon de gorge élargi de 12 mm, a redistribué la pression de contact sur une bande de 18 mm en virage — contre 8 mm initialement. La pression maximale de Hertz est passée de 1 420 MPa à 980 MPa pour la même charge latérale. La dissipation énergétique par glissement a diminué de 28 %, ce qui a réduit directement le taux d'usure par Archard.</p>
+      <p>La surprise était la lubrification. Le lubrifiant rail à base d'esters, appliqué par train de meulage, a réduit le coefficient de frottement latéral de 0,28 à 0,18 en virage — sans dégrader l'adhérence longitudinale (freinage d'urgence validé à 320 km/h sur banc dynamométrique). La combinaison du nouveau profil et de la nouvelle lubrification a produit une réduction d'usure de 35 %, et un doublement de la distance parcourue avant reprofilage.</p>
+    </div>
+
+    <div class="case-section">
+      <span class="eyebrow">— Ce qu'il faut retenir</span>
+      <h2>Le contact est un système, pas une propriété.</h2>
+      <p>La tribologie classique se concentre sur les matériaux : dureté du bandage, résistance à l'usure de la rail. Mais le contact roue-rail est dominé par la géométrie du profil et la chimie du film lubrifiant. Un acier plus dur sans changement de profil ne fera que changer le mécanisme d'usure : de l'usure par fatigue de roulement à l'usure par abrasion. La solution durable est de modifier la distribution de pression — ce qui est un problème de conception, pas de matériau.</p>
+      <p>C'est pourquoi nous traitons le contact roue-rail comme un problème de conception multi-contraintes : le profil doit garantir la stabilité à haute vitesse (EN 14363), le confort (Wz), les efforts de guidage (Y/Q), et la durée de vie (usure). La lubrification doit garantir la réduction de frottement sans dégrader l'adhérence. Et le matériau n'intervient que comme une contrainte de fabricabilité et de coût — pas comme le levier principal.</p>
+    </div>
+
+    <div class="case-section results">
+      <span class="eyebrow">— Bilan mesuré</span>
+      <h2>Des roues qui durent, des bâtis qui reposent.</h2>
+      <div class="results-bar">
+        <div class="r-item"><span class="r-val">×2,1</span><span class="r-lbl">Durée de vie roue (km)</span></div>
+        <div class="r-item"><span class="r-val">−35 %</span><span class="r-lbl">Taux usure latérale</span></div>
+        <div class="r-item"><span class="r-val">−28 %</span><span class="r-lbl">Efforts latéraux sur bâti</span></div>
+        <div class="r-item"><span class="r-val">0,0 %</span><span class="r-lbl">Écart stabilité EN 14363</span></div>
+        <div class="r-item"><span class="r-val">42</span><span class="r-lbl">Rames équipées</span></div>
+      </div>
+      <p class="results-note">Le nouveau profil « S1002-EM » a été soumis à l'UIC pour standardisation. Le coût de possession du matériel roulant a diminué de 22 % sur la première année de service — sans investissement en matériel, uniquement par conception et lubrification.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="case-pager" aria-label="Navigation blog">
+  <a class="pager-prev" href="/blog/topologie-fabricabilite.html">← Article précédent</a>
+  <a class="pager-all" href="/blog.html">Tous les articles</a>
+  <a class="pager-next" href="/blog/amdec-mieux-tableur.html">Article suivant →</a>
+</nav>
+
+<div id="site-footer"></div>
+<script src="/main.js" defer></script>
+</body>
+</html>
