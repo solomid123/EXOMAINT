@@ -78,7 +78,7 @@
    The RESEND_API_KEY lives ONLY in Supabase as a secret.
    ========================================================= */
 (() => {
-  const ENDPOINT = 'https://ntqyubyjpkqbmmhbtbjq.supabase.co/functions/v1/send-contact';
+  const ENDPOINT = 'https://koowuhkrnqbtpnkqkbpw.supabase.co/functions/v1/send-contact';
 
   const form   = document.getElementById('contactForm');
   const btn    = document.getElementById('formSubmit');
@@ -109,7 +109,7 @@
       });
       const payload = await res.json().catch(() => ({}));
 
-      if (res.ok && payload.ok) {
+      if (res.ok && (payload.ok || payload.success)) {
         form.reset();
         btn.textContent = 'Merci \u2014 re\u00e7u \u2713';
         setStatus('Votre message est parti. Nous revenons vers vous sous 48\u00a0h ouvr\u00e9es.', 'success');
